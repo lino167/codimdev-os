@@ -118,7 +118,7 @@ export default function DeploysPage() {
       fetchData();
 
       // 2. Output logs progressively to console for visual Wow factor
-      let currentLogs: string[] = [];
+      const currentLogs: string[] = [];
       for (let i = 0; i < logSteps.length; i++) {
         await new Promise((resolve) => setTimeout(resolve, 800));
         currentLogs.push(logSteps[i]);

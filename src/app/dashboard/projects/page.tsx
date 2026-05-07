@@ -70,7 +70,7 @@ export default function ProjectsPage() {
         .order("company", { ascending: true });
 
       if (clientsErr) throw clientsErr;
-      setClients(data => clientsData || []);
+      setClients(clientsData || []);
 
       // 2. Fetch projects with related client company
       const { data: projectsData, error: projectsErr } = await supabase
