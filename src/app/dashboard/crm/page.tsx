@@ -7,11 +7,8 @@ import {
   Users, 
   Plus, 
   Search, 
-  DollarSign, 
   TrendingUp, 
   Loader2, 
-  Briefcase, 
-  ChevronRight, 
   Trash2 
 } from "lucide-react";
 
@@ -73,7 +70,7 @@ export default function CRMPage() {
 
     setSubmitting(true);
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("leads")
         .insert([
           {
@@ -86,8 +83,7 @@ export default function CRMPage() {
             source,
             notes,
           },
-        ])
-        .select();
+        ]);
 
       if (error) throw error;
 
@@ -168,7 +164,7 @@ export default function CRMPage() {
         <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-border pb-4 gap-4">
           <div className="flex flex-col">
             <h2 className="font-technical text-lg font-bold tracking-widest text-text-primary flex items-center gap-2">
-              <Users size={18} className="text-primary" /> CRM_LEADS_DATABASE
+              <Users size={18} className="text-primary" /> BANCO DE CRM & LEADS
             </h2>
             <p className="font-technical text-xs text-text-muted mt-1">
               Motor de funil de vendas integrado ao Supabase Realtime para captação de novos projetos.
@@ -179,7 +175,7 @@ export default function CRMPage() {
               onClick={fetchLeads}
               className="px-3 py-1.5 font-technical text-xs font-bold border border-border hover:bg-surface-hover text-text-secondary active:scale-[0.98] transition-transform duration-75"
             >
-              SYNC_REFRESH
+              SINCRONIZAR
             </button>
           </div>
         </div>
@@ -187,37 +183,37 @@ export default function CRMPage() {
         {/* Technical Metric Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-surface border border-border p-4 flex flex-col justify-between">
-            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">TOTAL_LEADS</span>
+            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">TOTAL DE LEADS</span>
             <div className="flex items-baseline justify-between mt-3">
               <span className="font-technical text-2xl font-bold text-text-primary">{totalLeads}</span>
-              <span className="font-technical text-[10px] font-bold text-status-success">ACTIVE_FLOW</span>
+              <span className="font-technical text-[10px] font-bold text-status-success">FLUXO ATIVO</span>
             </div>
           </div>
           <div className="bg-surface border border-border p-4 flex flex-col justify-between">
-            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">CONVERSION_RATE</span>
+            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">TAXA DE CONVERSÃO</span>
             <div className="flex items-baseline justify-between mt-3">
               <span className="font-technical text-2xl font-bold text-text-primary">{conversionRate}%</span>
               <span className="font-technical text-[10px] font-bold text-status-success flex items-center gap-1">
-                <TrendingUp size={10} /> WIN_RATIO
+                <TrendingUp size={10} /> TAXA DE GANHO
               </span>
             </div>
           </div>
           <div className="bg-surface border border-border p-4 flex flex-col justify-between">
-            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">ACTIVE_PIPELINE_VALUE</span>
+            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">VALOR DO FUNIL ATIVO</span>
             <div className="flex items-baseline justify-between mt-3">
               <span className="font-technical text-2xl font-bold text-text-primary">
                 R$ {activeValue.toLocaleString("pt-BR", { minimumFractionDigits: 0 })}
               </span>
-              <span className="font-technical text-[10px] font-bold text-status-warning">NEGOTIATING</span>
+              <span className="font-technical text-[10px] font-bold text-status-warning">NEGOCIAÇÃO</span>
             </div>
           </div>
           <div className="bg-surface border border-border p-4 flex flex-col justify-between">
-            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">TOTAL_CONTRACTED</span>
+            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">FATURAMENTO CONTRATADO</span>
             <div className="flex items-baseline justify-between mt-3">
               <span className="font-technical text-2xl font-bold text-text-primary">
                 R$ {pipelineValue.toLocaleString("pt-BR", { minimumFractionDigits: 0 })}
               </span>
-              <span className="font-technical text-[10px] font-bold text-primary">WON_REVENUE</span>
+              <span className="font-technical text-[10px] font-bold text-primary">RECEITA CONQUISTADA</span>
             </div>
           </div>
         </div>
@@ -227,11 +223,11 @@ export default function CRMPage() {
           {/* Quick Insert Lead Form */}
           <div className="bg-surface border border-border p-5">
             <h3 className="font-technical text-xs font-bold text-text-primary tracking-widest border-b border-border pb-3 mb-4 flex items-center gap-1.5">
-              <Plus size={14} className="text-primary" /> INSERT_NEW_LEAD
+              <Plus size={14} className="text-primary" /> INSERIR NOVO LEAD
             </h3>
             <form onSubmit={handleAddLead} className="flex flex-col gap-3.5">
               <div className="flex flex-col gap-1.5">
-                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">FULL_NAME *</label>
+                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">NOME COMPLETO *</label>
                 <input
                   type="text"
                   required
@@ -243,7 +239,7 @@ export default function CRMPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">COMPANY_BRAND *</label>
+                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">EMPRESA / MARCA *</label>
                 <input
                   type="text"
                   required
@@ -256,7 +252,7 @@ export default function CRMPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">EMAIL_ADDRESS</label>
+                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">ENDEREÇO DE EMAIL</label>
                   <input
                     type="email"
                     placeholder="joao@kraflo.com"
@@ -266,7 +262,7 @@ export default function CRMPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">CONTACT_PHONE</label>
+                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">TELEFONE CONTATO</label>
                   <input
                     type="text"
                     placeholder="(11) 99999-9999"
@@ -279,7 +275,7 @@ export default function CRMPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">DEAL_VALUE (R$)</label>
+                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">VALOR DO NEGÓCIO (R$)</label>
                   <input
                     type="number"
                     placeholder="Ex: 5000"
@@ -289,7 +285,7 @@ export default function CRMPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">ACQUISITION_SOURCE</label>
+                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">ORIGEM DO LEAD</label>
                   <select
                     value={source}
                     onChange={(e) => setSource(e.target.value)}
@@ -298,31 +294,31 @@ export default function CRMPage() {
                     <option value="landing_page">Landing Page</option>
                     <option value="outreach">Outreach Ativo</option>
                     <option value="referral">Indicação</option>
-                    <option value="ads">Anúncios Tráfego</option>
+                    <option value="ads">Anúncios Pagos</option>
                   </select>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1.5 col-span-2">
-                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">PIPELINE_STATUS</label>
+                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">STATUS DO FUNIL</label>
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
                     className="bg-black border border-border px-2.5 py-2 text-xs font-technical text-text-primary focus:outline-none focus:border-border-focus"
                   >
-                    <option value="captured">CAPTURED (Capturado)</option>
-                    <option value="contacted">CONTACTED (Contato Inicial)</option>
-                    <option value="audit_proposed">AUDIT_PROPOSED (Proposta de Auditoria)</option>
-                    <option value="negotiating">NEGOTIATING (Negociação)</option>
-                    <option value="won">WON (Fechado/Ganho)</option>
-                    <option value="lost">LOST (Perdido)</option>
+                    <option value="captured">CAPTURADO</option>
+                    <option value="contacted">CONTATO INICIAL</option>
+                    <option value="audit_proposed">PROPOSTA ENVIADA</option>
+                    <option value="negotiating">EM NEGOCIAÇÃO</option>
+                    <option value="won">CONTRATADO / GANHO</option>
+                    <option value="lost">PERDIDO</option>
                   </select>
                 </div>
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">NOTES_TECHNICAL</label>
+                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">NOTAS TÉCNICAS</label>
                 <textarea
                   placeholder="Detalhamento técnico da dor ou necessidade..."
                   value={notes}
@@ -339,11 +335,11 @@ export default function CRMPage() {
               >
                 {submitting ? (
                   <>
-                    <Loader2 size={14} className="animate-spin" /> EXECUTING...
+                    <Loader2 size={14} className="animate-spin" /> SALVANDO...
                   </>
                 ) : (
                   <>
-                    <Plus size={14} /> INSERT_LEAD_RECORD
+                    <Plus size={14} /> REGISTRAR NOVO LEAD
                   </>
                 )}
               </button>
@@ -353,7 +349,7 @@ export default function CRMPage() {
           {/* Database Leads Table Panel */}
           <div className="lg:col-span-2 bg-surface border border-border p-5">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-border pb-3 mb-4 gap-3">
-              <span className="font-technical text-xs font-bold text-text-primary tracking-widest">DATABASE_QUERY_RECORDS</span>
+              <span className="font-technical text-xs font-bold text-text-primary tracking-widest">REGISTROS NA NUVEM</span>
               {/* Search Bar */}
               <div className="relative">
                 <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
@@ -370,7 +366,7 @@ export default function CRMPage() {
             {loading ? (
               <div className="h-64 flex flex-col items-center justify-center gap-2">
                 <Loader2 size={24} className="text-primary animate-spin" />
-                <span className="font-technical text-xs text-text-muted tracking-wider">RETRIEVING_DATA_STREAM...</span>
+                <span className="font-technical text-xs text-text-muted tracking-wider">CARREGANDO REGISTROS...</span>
               </div>
             ) : filteredLeads.length === 0 ? (
               <div className="h-64 flex flex-col items-center justify-center gap-2 border border-dashed border-border bg-black/20">
@@ -382,11 +378,11 @@ export default function CRMPage() {
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="border-b border-border text-text-muted font-technical text-[9px] font-bold tracking-widest bg-black/40">
-                      <th className="py-2.5 px-3">RECORD_LEAD</th>
-                      <th className="py-2.5 px-3">COMPANY</th>
-                      <th className="py-2.5 px-3">DEAL_VALUE</th>
+                      <th className="py-2.5 px-3">LEAD</th>
+                      <th className="py-2.5 px-3">EMPRESA</th>
+                      <th className="py-2.5 px-3">VALOR DO NEGÓCIO</th>
                       <th className="py-2.5 px-3">STATUS</th>
-                      <th className="py-2.5 px-3 text-right">ACTIONS</th>
+                      <th className="py-2.5 px-3 text-right">AÇÕES</th>
                     </tr>
                   </thead>
                   <tbody className="font-technical text-xs">
@@ -429,12 +425,12 @@ export default function CRMPage() {
                                 : "border-border text-text-secondary"
                             }`}
                           >
-                            <option value="captured">CAPTURED</option>
-                            <option value="contacted">CONTACTED</option>
-                            <option value="audit_proposed">PROPOSED</option>
-                            <option value="negotiating">NEGOTIATING</option>
-                            <option value="won">WON</option>
-                            <option value="lost">LOST</option>
+                            <option value="captured">CAPTURADO</option>
+                            <option value="contacted">CONTATADO</option>
+                            <option value="audit_proposed">PROPOSTA ENVIADA</option>
+                            <option value="negotiating">NEGOCIAÇÃO</option>
+                            <option value="won">GANHO</option>
+                            <option value="lost">PERDIDO</option>
                           </select>
                         </td>
 

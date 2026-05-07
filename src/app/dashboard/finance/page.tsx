@@ -12,8 +12,7 @@ import {
   TrendingUp, 
   TrendingDown, 
   Loader2, 
-  Trash2, 
-  Calendar 
+  Trash2 
 } from "lucide-react";
 
 interface Transaction {
@@ -51,7 +50,7 @@ export default function FinancePage() {
       if (error) throw error;
       setTransactions(data || []);
     } catch (err) {
-      console.error("Error retrieving transactions:", err);
+      console.error("Erro ao recuperar transações:", err);
     } finally {
       setLoading(false);
     }
@@ -90,7 +89,7 @@ export default function FinancePage() {
       // Refresh list
       fetchTransactions();
     } catch (err) {
-      console.error("Error inserting transaction:", err);
+      console.error("Erro ao inserir transação:", err);
     } finally {
       setSubmitting(false);
     }
@@ -111,7 +110,7 @@ export default function FinancePage() {
       // Update local state
       setTransactions((prev) => prev.filter((t) => t.id !== id));
     } catch (err) {
-      console.error("Error deleting transaction:", err);
+      console.error("Erro ao excluir transação:", err);
     }
   };
 
@@ -141,7 +140,7 @@ export default function FinancePage() {
         <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-border pb-4 gap-4">
           <div className="flex flex-col">
             <h2 className="font-technical text-lg font-bold tracking-widest text-text-primary flex items-center gap-2">
-              <DollarSign size={18} className="text-primary animate-pulse" /> FIN_BILLING_MONITOR
+              <DollarSign size={18} className="text-primary animate-pulse" /> PAINEL DE CONTROLE FINANCEIRO
             </h2>
             <p className="font-technical text-xs text-text-muted mt-1">
               Rastreador de fluxo de caixa corporativo e liquidez da agência integrado ao Supabase.
@@ -152,7 +151,7 @@ export default function FinancePage() {
               onClick={fetchTransactions}
               className="px-3 py-1.5 font-technical text-xs font-bold border border-border hover:bg-surface-hover text-text-secondary active:scale-[0.98] transition-transform duration-75"
             >
-              SYNC_FINANCE
+              SINCRONIZAR FINANCEIRO
             </button>
           </div>
         </div>
@@ -162,32 +161,32 @@ export default function FinancePage() {
           {/* Total Revenue */}
           <div className="bg-surface border border-border p-4 flex flex-col justify-between">
             <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest flex items-center gap-1.5">
-              <TrendingUp size={12} className="text-status-success" /> TOTAL_REVENUE (RECEITAS)
+              <TrendingUp size={12} className="text-status-success" /> RECEITA BRUTA TOTAL
             </span>
             <div className="flex items-baseline justify-between mt-3">
               <span className="font-technical text-2xl font-bold text-status-success">
                 R$ {totalIncomes.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
               </span>
-              <span className="font-technical text-[9px] font-bold text-status-success">+ CASH_IN</span>
+              <span className="font-technical text-[9px] font-bold text-status-success">+ ENTRADAS</span>
             </div>
           </div>
 
           {/* Total Expenses */}
           <div className="bg-surface border border-border p-4 flex flex-col justify-between">
             <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest flex items-center gap-1.5">
-              <TrendingDown size={12} className="text-status-danger animate-pulse" /> TOTAL_EXPENSES (DESPESAS)
+              <TrendingDown size={12} className="text-status-danger animate-pulse" /> DESPESAS TOTAIS
             </span>
             <div className="flex items-baseline justify-between mt-3">
               <span className="font-technical text-2xl font-bold text-status-danger">
                 R$ {totalExpenses.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
               </span>
-              <span className="font-technical text-[9px] font-bold text-status-danger">- CASH_OUT</span>
+              <span className="font-technical text-[9px] font-bold text-status-danger">- SAÍDAS</span>
             </div>
           </div>
 
           {/* Net Profit */}
           <div className="bg-surface border border-border p-4 flex flex-col justify-between">
-            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">NET_PROFIT (SALDO LÍQUIDO)</span>
+            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">SALDO LÍQUIDO GERAL</span>
             <div className="flex items-baseline justify-between mt-3">
               <span className={`font-technical text-2xl font-bold ${
                 netProfit >= 0 ? "text-text-primary" : "text-status-danger"
@@ -197,19 +196,19 @@ export default function FinancePage() {
               <span className={`font-technical text-[9px] font-bold ${
                 netProfit >= 0 ? "text-status-success" : "text-status-danger"
               }`}>
-                {netProfit >= 0 ? "SURPLUS" : "DEFICIT"}
+                {netProfit >= 0 ? "SUPERÁVIT" : "DÉFICIT"}
               </span>
             </div>
           </div>
 
           {/* Profit Margin */}
           <div className="bg-surface border border-border p-4 flex flex-col justify-between">
-            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">PROFIT_MARGIN (MARGEM LÍQUIDA)</span>
+            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">MARGEM LÍQUIDA ACUMULADA</span>
             <div className="flex items-baseline justify-between mt-3">
               <span className="font-technical text-2xl font-bold text-text-primary">
                 {profitMargin}%
               </span>
-              <span className="font-technical text-[9px] font-bold text-status-success">EFFICIENT</span>
+              <span className="font-technical text-[9px] font-bold text-status-success">EFICIÊNCIA</span>
             </div>
           </div>
         </div>
@@ -219,11 +218,11 @@ export default function FinancePage() {
           {/* Quick Insert Transaction Form */}
           <div className="bg-surface border border-border p-5">
             <h3 className="font-technical text-xs font-bold text-text-primary tracking-widest border-b border-border pb-3 mb-4 flex items-center gap-1.5">
-              <Plus size={14} className="text-primary" /> POST_NEW_TRANSACTION
+              <Plus size={14} className="text-primary" /> LANÇAR NOVA TRANSAÇÃO
             </h3>
             <form onSubmit={handleAddTransaction} className="flex flex-col gap-3.5">
               <div className="flex flex-col gap-1.5">
-                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">DESCRIPTION *</label>
+                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">DESCRIÇÃO *</label>
                 <input
                   type="text"
                   required
@@ -236,7 +235,7 @@ export default function FinancePage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">VALUE AMOUNT (R$) *</label>
+                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">VALOR (R$) *</label>
                   <input
                     type="number"
                     step="0.01"
@@ -248,21 +247,21 @@ export default function FinancePage() {
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">FLOW_TYPE</label>
+                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">TIPO DE FLUXO</label>
                   <select
                     value={type}
                     onChange={(e) => setType(e.target.value)}
                     className="bg-black border border-border px-2.5 py-2 text-xs font-technical text-text-primary focus:outline-none focus:border-border-focus"
                   >
-                    <option value="income">Receita (+) </option>
-                    <option value="expense">Despesa (-) </option>
+                    <option value="income">Receita (+)</option>
+                    <option value="expense">Despesa (-)</option>
                   </select>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">CATEGORY</label>
+                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">CATEGORIA</label>
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
@@ -276,7 +275,7 @@ export default function FinancePage() {
                   </select>
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">TRANSACTION_DATE</label>
+                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">DATA DA TRANSAÇÃO</label>
                   <div className="relative flex items-center">
                     <input
                       type="date"
@@ -292,15 +291,15 @@ export default function FinancePage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-primary hover:bg-primary-hover text-text-primary font-technical text-xs font-bold py-2.5 mt-2 flex items-center justify-center gap-2 transition-colors duration-100 disabled:opacity-50"
+                className="w-full bg-primary hover:bg-primary-hover text-text-primary border border-border font-technical text-xs font-bold py-2.5 mt-2 flex items-center justify-center gap-2 transition-colors duration-100 disabled:opacity-50"
               >
                 {submitting ? (
                   <>
-                    <Loader2 size={14} className="animate-spin" /> DISPATCHING...
+                    <Loader2 size={14} className="animate-spin" /> LANÇANDO...
                   </>
                 ) : (
                   <>
-                    <Plus size={14} /> POST_TRANSACTION_RECORD
+                    <Plus size={14} /> SALVAR REGISTRO NO LIVRO-CAIXA
                   </>
                 )}
               </button>
@@ -310,7 +309,7 @@ export default function FinancePage() {
           {/* Database Financial Ledger Panel */}
           <div className="lg:col-span-2 bg-surface border border-border p-5">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-border pb-3 mb-4 gap-3">
-              <span className="font-technical text-xs font-bold text-text-primary tracking-widest">LEDGER_STATEMENT_QUERY</span>
+              <span className="font-technical text-xs font-bold text-text-primary tracking-widest">HISTÓRICO DO LIVRO-CAIXA</span>
               {/* Search Bar */}
               <div className="relative">
                 <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
@@ -327,7 +326,7 @@ export default function FinancePage() {
             {loading ? (
               <div className="h-64 flex flex-col items-center justify-center gap-2">
                 <Loader2 size={24} className="text-primary animate-spin" />
-                <span className="font-technical text-xs text-text-muted tracking-wider">FETCHING_FINANCIAL_LEDGER...</span>
+                <span className="font-technical text-xs text-text-muted tracking-wider">CARREGANDO LIVRO-CAIXA FINANCEIRO...</span>
               </div>
             ) : filteredTransactions.length === 0 ? (
               <div className="h-64 flex flex-col items-center justify-center gap-2 border border-dashed border-border bg-black/20">
@@ -339,11 +338,11 @@ export default function FinancePage() {
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="border-b border-border text-text-muted font-technical text-[9px] font-bold tracking-widest bg-black/40">
-                      <th className="py-2.5 px-3">VAL_DATE</th>
-                      <th className="py-2.5 px-3">DESCRIPTION</th>
-                      <th className="py-2.5 px-3">CATEGORY</th>
-                      <th className="py-2.5 px-3">FLOW_AMOUNT</th>
-                      <th className="py-2.5 px-3 text-right">ACTIONS</th>
+                      <th className="py-2.5 px-3">DATA VAL</th>
+                      <th className="py-2.5 px-3">DESCRIÇÃO</th>
+                      <th className="py-2.5 px-3">CATEGORIA</th>
+                      <th className="py-2.5 px-3">VALOR DO FLUXO</th>
+                      <th className="py-2.5 px-3 text-right">AÇÕES</th>
                     </tr>
                   </thead>
                   <tbody className="font-technical text-xs">

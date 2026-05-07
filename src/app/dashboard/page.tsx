@@ -40,33 +40,33 @@ const MetricCard = ({ title, value, change, isPositive, icon }: MetricCardProps)
 };
 
 export default function DashboardPage() {
-  // Mock data representing a unified view of the OS
+  // Dados simulados representativos para o Painel Operacional
   const activeProjects = [
-    { name: "Kraflo CMMS Desktop", client: "Kraflo Ind.", progress: 85, status: "building" },
-    { name: "SaaS Audit™ Blueprint", client: "Nodus Corp", progress: 100, status: "deployed" },
-    { name: "Performance LP Setup", client: "Studio Beauty", progress: 40, status: "designing" },
+    { name: "Desktop Kraflo CMMS", client: "Kraflo Ind.", progress: 85, status: "em_producao" },
+    { name: "SaaS Audit™ Blueprint", client: "Nodus Corp", progress: 100, status: "concluido" },
+    { name: "Setup Landing Page Performance", client: "Studio Beauty", progress: 40, status: "design" },
   ];
 
   const recentDeploys = [
-    { commit: "feat: add Preventative executions trigger", hash: "a3b98c1", time: "10m ago", status: "success" },
-    { commit: "fix: solve timezone mismatch in OS Bot", hash: "9e2f41a", time: "1h ago", status: "success" },
-    { commit: "build: initial config for benchmarks", hash: "ef821b3", time: "4h ago", status: "failed" },
+    { commit: "feat: add gatilho para execuções preventivas", hash: "a3b98c1", time: "há 10 min", status: "success" },
+    { commit: "fix: solve discrepância de timezone no robô do OS", hash: "9e2f41a", time: "há 1 hora", status: "success" },
+    { commit: "build: initial config para benchmarks de performance", hash: "ef821b3", time: "há 4 horas", status: "failed" },
   ];
 
   const automationLogs = [
-    { name: "Telegram Bot: OS #416 despachada", time: "5m ago", status: "success" },
-    { name: "n8n Sync: Lead cadastrado (Nodus)", time: "12m ago", status: "success" },
-    { name: "Stripe Webhook: Billing mensal verificado", time: "1h ago", status: "success" },
+    { name: "Robô Telegram: OS #416 despachada com sucesso", time: "há 5 min", status: "success" },
+    { name: "Sincronização n8n: Novo lead cadastrado (Nodus)", time: "há 12 min", status: "success" },
+    { name: "Stripe Webhook: Cobrança de MRR mensal verificada", time: "há 1 hora", status: "success" },
   ];
 
   return (
     <DashboardShell>
       <div className="flex flex-col gap-6">
-        {/* Module Section Header */}
+        {/* Cabeçalho da Seção */}
         <div className="flex items-center justify-between border-b border-border pb-4">
           <div className="flex flex-col">
             <h2 className="font-technical text-lg font-bold tracking-widest text-text-primary">
-              PANEL_MONITOR
+              PAINEL DE CONTROLE
             </h2>
             <p className="font-technical text-xs text-text-muted mt-1">
               Painel de telemetria operacional unificado da CodimDev.
@@ -74,51 +74,51 @@ export default function DashboardPage() {
           </div>
           <div className="flex items-center gap-2 font-technical text-[10px] bg-black border border-border px-3 py-1 text-text-secondary">
             <Activity size={12} className="text-primary animate-pulse" />
-            <span>CORE_LOAD: 2.4%</span>
+            <span>USO DO CORE: 2.4%</span>
           </div>
         </div>
 
-        {/* Technical Metric Cards Grid */}
+        {/* Grade de Cartões de Métricas Técnicas */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <MetricCard
-            title="CRM_TOTAL_LEADS"
+            title="CRM TOTAL DE LEADS"
             value="42"
-            change="+12.4% (MONTH)"
+            change="+12.4% (MÊS)"
             isPositive={true}
             icon={<Users size={16} />}
           />
           <MetricCard
-            title="ACTIVE_PROJECTS"
+            title="PROJETOS ATIVOS"
             value="3"
-            change="SYS_STABLE"
+            change="SISTEMA ESTÁVEL"
             isPositive={true}
             icon={<Briefcase size={16} />}
           />
           <MetricCard
-            title="MONTHLY_MRR"
+            title="MRR MENSAL"
             value="R$ 14.250"
-            change="+8.2% (REV)"
+            change="+8.2% (RECEITA)"
             isPositive={true}
             icon={<DollarSign size={16} />}
           />
           <MetricCard
-            title="DEPLOY_PIPELINES"
+            title="ESTEIRAS DE DEPLOY"
             value="148"
-            change="99.2% SUCCESS"
+            change="99.2% SUCESSO"
             isPositive={true}
             icon={<GitBranch size={16} />}
           />
         </div>
 
-        {/* Bento Grid Content */}
+        {/* Conteúdo Bento Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Bento Column 1: Projects Tracker */}
+          {/* Coluna Bento 1: Monitor de Projetos */}
           <div className="lg:col-span-2 bg-surface border border-border p-5 flex flex-col justify-between hover:border-border-focus transition-all duration-100">
             <div>
               <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
-                <span className="font-technical text-xs font-bold text-text-primary tracking-widest">PROJ_ENGINE_STATUS</span>
+                <span className="font-technical text-xs font-bold text-text-primary tracking-widest">STATUS DO MOTOR DE PROJETOS</span>
                 <Link href="/dashboard/projects" className="text-primary hover:text-primary-hover flex items-center gap-1 font-technical text-[10px] font-bold">
-                  MANAGE_PROJ <ArrowUpRight size={12} />
+                  GERENCIAR <ArrowUpRight size={12} />
                 </Link>
               </div>
               <div className="flex flex-col gap-4">
@@ -130,11 +130,11 @@ export default function DashboardPage() {
                         <span className="font-technical text-[10px] text-text-muted mt-0.5">{project.client}</span>
                       </div>
                       <span className={`font-technical text-[9px] font-bold tracking-widest px-2 py-0.5 border ${
-                        project.status === "deployed" 
+                        project.status === "concluido" 
                           ? "border-status-success/30 text-status-success bg-status-success/5" 
                           : "border-status-warning/30 text-status-warning bg-status-warning/5 animate-pulse"
                       }`}>
-                        {project.status.toUpperCase()}
+                        {project.status === "concluido" ? "CONCLUÍDO" : project.status === "em_producao" ? "EM PRODUÇÃO" : "DESIGN"}
                       </span>
                     </div>
                     {/* Precision Progress Bar */}
@@ -145,7 +145,7 @@ export default function DashboardPage() {
                       ></div>
                     </div>
                     <div className="flex justify-between font-technical text-[9px] text-text-secondary mt-1.5">
-                      <span>ENGINE_PHASE: {project.progress === 100 ? "04_SCALE" : project.progress >= 75 ? "03_PRECISION_BUILD" : "02_SYSTEM_BLUEPRINT"}</span>
+                      <span>FASE DO PROJETO: {project.progress === 100 ? "04_ESCALA" : project.progress >= 75 ? "03_CONSTRUÇÃO_PRECISA" : "02_SISTEMA_BLUEPRINT"}</span>
                       <span className="font-bold text-text-primary">{project.progress}%</span>
                     </div>
                   </div>
@@ -154,13 +154,13 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Bento Column 2: Deploy Monitor */}
+          {/* Coluna Bento 2: Monitor de Deploy */}
           <div className="bg-surface border border-border p-5 flex flex-col justify-between hover:border-border-focus transition-all duration-100">
             <div>
               <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
-                <span className="font-technical text-xs font-bold text-text-primary tracking-widest">LIVE_DEPLOY_FEED</span>
+                <span className="font-technical text-xs font-bold text-text-primary tracking-widest">FEED DE DEPLOYS</span>
                 <Link href="/dashboard/deploys" className="text-primary hover:text-primary-hover flex items-center gap-1 font-technical text-[10px] font-bold">
-                  PIPELINES <ArrowUpRight size={12} />
+                  ESTEIRAS <ArrowUpRight size={12} />
                 </Link>
               </div>
               <div className="flex flex-col gap-3">
@@ -176,12 +176,12 @@ export default function DashboardPage() {
                         {deploy.status === "success" ? (
                           <>
                             <CheckCircle2 size={12} className="text-status-success" />
-                            <span className="font-technical text-[9px] font-bold text-status-success tracking-widest">SUCCESS</span>
+                            <span className="font-technical text-[9px] font-bold text-status-success tracking-widest">SUCESSO</span>
                           </>
                         ) : (
                           <>
                             <AlertTriangle size={12} className="text-status-danger animate-pulse" />
-                            <span className="font-technical text-[9px] font-bold text-status-danger tracking-widest animate-pulse">FAILED</span>
+                            <span className="font-technical text-[9px] font-bold text-status-danger tracking-widest animate-pulse">FALHOU</span>
                           </>
                         )}
                       </div>
@@ -193,12 +193,12 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Bottom Bento: Automation Monitoring Terminal */}
+        {/* Painel Inferior: Terminal de Automações */}
         <div className="bg-surface border border-border p-5 hover:border-border-focus transition-all duration-100">
           <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
-            <span className="font-technical text-xs font-bold text-text-primary tracking-widest">ACTIVE_AUTOMATION_STREAMS</span>
+            <span className="font-technical text-xs font-bold text-text-primary tracking-widest">FLUXOS DE AUTOMAÇÃO ATIVOS</span>
             <Link href="/dashboard/automations" className="text-primary hover:text-primary-hover flex items-center gap-1 font-technical text-[10px] font-bold">
-              SYS_LOGS <ArrowUpRight size={12} />
+              LOGS <ArrowUpRight size={12} />
             </Link>
           </div>
           <div className="font-technical text-xs bg-black p-4 border border-border text-text-secondary flex flex-col gap-2.5 max-h-56 overflow-y-auto">

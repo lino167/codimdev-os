@@ -11,8 +11,7 @@ import {
   EyeOff, 
   Loader2, 
   Trash2, 
-  Sparkles, 
-  Clock 
+  Sparkles 
 } from "lucide-react";
 
 interface Post {
@@ -50,7 +49,7 @@ export default function CMSPage() {
       if (error) throw error;
       setPosts(data || []);
     } catch (err) {
-      console.error("Error fetching posts:", err);
+      console.error("Erro ao carregar publicações:", err);
     } finally {
       setLoading(false);
     }
@@ -101,7 +100,7 @@ export default function CMSPage() {
       // Refresh list
       fetchPosts();
     } catch (err) {
-      console.error("Error inserting post:", err);
+      console.error("Erro ao inserir publicação:", err);
     } finally {
       setSubmitting(false);
     }
@@ -123,7 +122,7 @@ export default function CMSPage() {
         prev.map((post) => (post.id === id ? { ...post, status: newStatus } : post))
       );
     } catch (err) {
-      console.error("Error updating status:", err);
+      console.error("Erro ao atualizar status:", err);
     }
   };
 
@@ -138,7 +137,7 @@ export default function CMSPage() {
       // Update local state
       setPosts((prev) => prev.filter((post) => post.id !== id));
     } catch (err) {
-      console.error("Error deleting post:", err);
+      console.error("Erro ao deletar postagem:", err);
     }
   };
 
@@ -161,7 +160,7 @@ export default function CMSPage() {
         <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-border pb-4 gap-4">
           <div className="flex flex-col">
             <h2 className="font-technical text-lg font-bold tracking-widest text-text-primary flex items-center gap-2">
-              <FileText size={18} className="text-primary animate-pulse" /> CMS_MANAGER_CORE
+              <FileText size={18} className="text-primary animate-pulse" /> PAINEL CENTRAL DE CMS
             </h2>
             <p className="font-technical text-xs text-text-muted mt-1">
               Painel de criação de postagens em Markdown para o portfólio e blog institucional da agência.
@@ -171,34 +170,34 @@ export default function CMSPage() {
             onClick={fetchPosts}
             className="px-3 py-1.5 font-technical text-xs font-bold border border-border hover:bg-surface-hover text-text-secondary transition-colors"
           >
-            SYNC_CMS_STREAM
+            SINCRONIZAR CONTEÚDOS
           </button>
         </div>
 
         {/* Technical Metric Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-surface border border-border p-4 flex flex-col justify-between">
-            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">TOTAL_ARTICLES_INDEXED</span>
+            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">ARTIGOS INDEXADOS</span>
             <div className="flex items-baseline justify-between mt-3">
               <span className="font-technical text-2xl font-bold text-text-primary">{totalPosts}</span>
-              <span className="font-technical text-[9px] font-bold text-primary">DB_SYNC_OK</span>
+              <span className="font-technical text-[9px] font-bold text-primary">CONEXÃO ATIVA</span>
             </div>
           </div>
           <div className="bg-surface border border-border p-4 flex flex-col justify-between">
-            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">PUBLISHED_POSTS</span>
+            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">ARTIGOS PUBLICADOS</span>
             <div className="flex items-baseline justify-between mt-3">
               <span className="font-technical text-2xl font-bold text-status-success">{publishedCount}</span>
               <span className="font-technical text-[9px] font-bold text-status-success flex items-center gap-1">
-                <Eye size={11} /> LIVE_ONLINE
+                <Eye size={11} /> CONTEÚDO PÚBLICO
               </span>
             </div>
           </div>
           <div className="bg-surface border border-border p-4 flex flex-col justify-between">
-            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">DRAFT_POSTS</span>
+            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">RASCUNHOS SALVOS</span>
             <div className="flex items-baseline justify-between mt-3">
               <span className="font-technical text-2xl font-bold text-status-warning">{draftCount}</span>
               <span className="font-technical text-[9px] font-bold text-status-warning flex items-center gap-1">
-                <EyeOff size={11} /> OFFLINE_DRAFT
+                <EyeOff size={11} /> RASCUNHO OFFLINE
               </span>
             </div>
           </div>
@@ -209,11 +208,11 @@ export default function CMSPage() {
           {/* Create New Post Form */}
           <div className="bg-surface border border-border p-5">
             <h3 className="font-technical text-xs font-bold text-text-primary tracking-widest border-b border-border pb-3 mb-4 flex items-center gap-1.5">
-              <Plus size={14} className="text-primary" /> WRITE_NEW_POST_MD
+              <Plus size={14} className="text-primary" /> ESCREVER NOVO POST EM MARKDOWN
             </h3>
             <form onSubmit={handleAddPost} className="flex flex-col gap-3.5">
               <div className="flex flex-col gap-1.5">
-                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">ARTICLE_TITLE *</label>
+                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">TÍTULO DO ARTIGO *</label>
                 <input
                   type="text"
                   required
@@ -226,9 +225,9 @@ export default function CMSPage() {
 
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-center justify-between">
-                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">URL_SLUG (AUTO)</label>
+                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">SLUG DA URL (AUTOMÁTICO)</label>
                   <span className="text-[9px] text-primary font-technical font-bold flex items-center gap-0.5">
-                    <Sparkles size={10} /> ENGINE_ACTIVE
+                    <Sparkles size={10} /> GERADOR AUTOMÁTICO ATIVO
                   </span>
                 </div>
                 <input
@@ -242,7 +241,7 @@ export default function CMSPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">SUMMARY_META *</label>
+                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">RESUMO (META DESCRIPTION) *</label>
                 <input
                   type="text"
                   required
@@ -255,20 +254,20 @@ export default function CMSPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1.5 col-span-2">
-                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">PUBLICATION_STATUS</label>
+                  <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">STATUS DE PUBLICAÇÃO</label>
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
                     className="bg-black border border-border px-2.5 py-2 text-xs font-technical text-text-primary focus:outline-none focus:border-border-focus"
                   >
-                    <option value="draft">DRAFT (Rascunho Privado)</option>
-                    <option value="published">PUBLISHED (Artigo Público)</option>
+                    <option value="draft">RASCUNHO (Rascunho Privado)</option>
+                    <option value="published">PUBLICADO (Artigo Público)</option>
                   </select>
                 </div>
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">MARKDOWN_BODY *</label>
+                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">CORPO DO TEXTO (MARKDOWN) *</label>
                 <textarea
                   required
                   placeholder="# Título do Artigo&#10;&#10;Escreva o seu corpo textual em Markdown com suporte nativo a tags..."
@@ -282,15 +281,15 @@ export default function CMSPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-primary hover:bg-primary-hover text-text-primary font-technical text-xs font-bold py-2.5 flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+                className="w-full bg-primary hover:bg-primary-hover text-text-primary border border-border font-technical text-xs font-bold py-2.5 flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
               >
                 {submitting ? (
                   <>
-                    <Loader2 size={14} className="animate-spin" /> INDEXING...
+                    <Loader2 size={14} className="animate-spin" /> INDEXANDO...
                   </>
                 ) : (
                   <>
-                    <Plus size={14} /> INDEX_NEW_POST
+                    <Plus size={14} /> SALVAR E INDEXAR ARTIGO
                   </>
                 )}
               </button>
@@ -300,7 +299,7 @@ export default function CMSPage() {
           {/* Database Posts Registry Table */}
           <div className="lg:col-span-2 bg-surface border border-border p-5">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-border pb-3 mb-4 gap-3">
-              <span className="font-technical text-xs font-bold text-text-primary tracking-widest">POSTS_QUERY_RECORDS</span>
+              <span className="font-technical text-xs font-bold text-text-primary tracking-widest">POSTAGENS REGISTRADAS</span>
               {/* Search Bar */}
               <div className="relative">
                 <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
@@ -317,7 +316,7 @@ export default function CMSPage() {
             {loading ? (
               <div className="h-64 flex flex-col items-center justify-center gap-2">
                 <Loader2 size={24} className="text-primary animate-spin" />
-                <span className="font-technical text-xs text-text-muted tracking-wider">CONNECTING_CMS_STREAM...</span>
+                <span className="font-technical text-xs text-text-muted tracking-wider">CONECTANDO AO CONTEÚDO DO CMS...</span>
               </div>
             ) : filteredPosts.length === 0 ? (
               <div className="h-64 flex flex-col items-center justify-center gap-2 border border-dashed border-border bg-black/20">
@@ -329,11 +328,11 @@ export default function CMSPage() {
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="border-b border-border text-text-muted font-technical text-[9px] font-bold tracking-widest bg-black/40">
-                      <th className="py-2.5 px-3">VAL_DATE</th>
-                      <th className="py-2.5 px-3">POST_TITLE</th>
+                      <th className="py-2.5 px-3">DATA VAL</th>
+                      <th className="py-2.5 px-3">TÍTULO DO ARTIGO</th>
                       <th className="py-2.5 px-3">SLUG</th>
                       <th className="py-2.5 px-3">STATUS</th>
-                      <th className="py-2.5 px-3 text-right">ACTIONS</th>
+                      <th className="py-2.5 px-3 text-right">AÇÕES</th>
                     </tr>
                   </thead>
                   <tbody className="font-technical text-xs">
@@ -371,7 +370,7 @@ export default function CMSPage() {
                                 : "border-status-warning/30 text-status-warning bg-status-warning/5 hover:border-status-warning/60"
                             }`}
                           >
-                            {post.status}
+                            {post.status === "published" ? "PUBLICADO" : "RASCUNHO"}
                           </button>
                         </td>
 

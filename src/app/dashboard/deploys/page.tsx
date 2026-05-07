@@ -7,11 +7,8 @@ import {
   GitBranch, 
   Play, 
   Terminal as TermIcon, 
-  CheckCircle2, 
-  AlertTriangle, 
   Loader2, 
   Clock, 
-  Cpu, 
   Trash2 
 } from "lucide-react";
 
@@ -67,7 +64,7 @@ export default function DeploysPage() {
       if (error) throw error;
       setDeploys(deploysData || []);
     } catch (err) {
-      console.error("Error fetching deploys:", err);
+      console.error("Erro ao buscar histórico de deploys:", err);
     } finally {
       setLoading(false);
     }
@@ -87,16 +84,16 @@ export default function DeploysPage() {
 
     const randHash = Math.random().toString(16).substring(2, 9);
     
-    // Step-by-step logs simulation
+    // Step-by-step logs simulation in Portuguese
     const logSteps = [
-      `[LOG] Initializing build pipeline for commit ${randHash}...`,
-      `[LOG] Loading operational environment variables (.env.production)...`,
-      `[LOG] Resolving dependencies with npm package manager...`,
-      `[LOG] Compiling typescript source modules with Turbopack engine...`,
-      `[LOG] Executing performance bundle optimization tests...`,
-      `[LOG] Optimizing static images and dynamic routes...`,
-      `[LOG] Deploy successfully published to Edge Network CDN.`,
-      `[LOG] Environment secured at production. STATUS: RUNNING.`
+      `[LOG] Inicializando pipeline de compilação para o commit ${randHash}...`,
+      `[LOG] Carregando variáveis de ambiente de produção (.env.production)...`,
+      `[LOG] Resolvendo dependências com o gerenciador de pacotes npm...`,
+      `[LOG] Compilando módulos TypeScript com motor Turbopack de alta velocidade...`,
+      `[LOG] Executando testes automatizados e análises estáticas do código...`,
+      `[LOG] Otimizando carregamento de imagens e renderização estática...`,
+      `[LOG] Deploy publicado com sucesso na CDN Edge Network Global de baixa latência.`,
+      `[LOG] Processo concluído. STATUS: EM EXECUÇÃO.`
     ];
 
     try {
@@ -145,7 +142,7 @@ export default function DeploysPage() {
       setSelectedProjectId("");
       fetchData();
     } catch (err) {
-      console.error("Error executing build:", err);
+      console.error("Erro ao executar compilação de deploy:", err);
     } finally {
       setBuilding(false);
     }
@@ -153,14 +150,14 @@ export default function DeploysPage() {
 
   // Delete deploy record
   const handleDeleteDeploy = async (id: string) => {
-    if (!confirm("Remover registro histórico deste deploy?")) return;
+    if (!confirm("Confirmar a exclusão do histórico deste deploy?")) return;
 
     try {
       const { error } = await supabase.from("deploys").delete().eq("id", id);
       if (error) throw error;
       setDeploys((prev) => prev.filter((d) => d.id !== id));
     } catch (err) {
-      console.error("Error deleting deploy record:", err);
+      console.error("Erro ao deletar registro de deploy:", err);
     }
   };
 
@@ -177,41 +174,41 @@ export default function DeploysPage() {
         <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-border pb-4 gap-4">
           <div className="flex flex-col">
             <h2 className="font-technical text-lg font-bold tracking-widest text-text-primary flex items-center gap-2">
-              <GitBranch size={18} className="text-primary animate-pulse" /> DEPLOY_PIPELINES_ENGINE
+              <GitBranch size={18} className="text-primary animate-pulse" /> ESTEIRAS E PIPELINES DE DEPLOY
             </h2>
             <p className="font-technical text-xs text-text-muted mt-1">
-              Painel de trigger de deploys e logs de compilação em tempo real.
+              Painel de disparo de deploys e acompanhamento de logs de compilação em tempo real.
             </p>
           </div>
           <button
             onClick={fetchData}
             className="px-3 py-1.5 font-technical text-xs font-bold border border-border hover:bg-surface-hover text-text-secondary transition-colors"
           >
-            REFRESH_BUILDS
+            RECARREGAR COMPILAÇÕES
           </button>
         </div>
 
         {/* Deploy Metrics */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-surface border border-border p-4 flex flex-col justify-between">
-            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">TOTAL_BUILDS_LAUNCHED</span>
+            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">COMPILAÇÕES LANÇADAS</span>
             <div className="flex items-baseline justify-between mt-3">
               <span className="font-technical text-2xl font-bold text-text-primary">{totalDeploys}</span>
-              <span className="font-technical text-[9px] font-bold text-primary">SYS_STABLE</span>
+              <span className="font-technical text-[9px] font-bold text-primary">SISTEMA ATIVO</span>
             </div>
           </div>
           <div className="bg-surface border border-border p-4 flex flex-col justify-between">
-            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">SUCCESS_RATE</span>
+            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">TAXA DE SUCESSO</span>
             <div className="flex items-baseline justify-between mt-3">
               <span className="font-technical text-2xl font-bold text-status-success">{successRate}%</span>
-              <span className="font-technical text-[9px] font-bold text-status-success">OPTIMIZED</span>
+              <span className="font-technical text-[9px] font-bold text-status-success">OTIMIZADO</span>
             </div>
           </div>
           <div className="bg-surface border border-border p-4 flex flex-col justify-between">
-            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">FAILED_PIPELINES</span>
+            <span className="font-technical text-[10px] font-bold text-text-muted tracking-widest">PIPELINES COM FALHA</span>
             <div className="flex items-baseline justify-between mt-3">
               <span className="font-technical text-2xl font-bold text-status-danger">{failedDeploys}</span>
-              <span className="font-technical text-[9px] font-bold text-status-danger">ALERTS_ZERO</span>
+              <span className="font-technical text-[9px] font-bold text-status-danger">ALERTAS ZERO</span>
             </div>
           </div>
         </div>
@@ -221,11 +218,11 @@ export default function DeploysPage() {
           {/* Action Trigger Form */}
           <div className="bg-surface border border-border p-5">
             <h3 className="font-technical text-xs font-bold text-text-primary tracking-widest border-b border-border pb-3 mb-4 flex items-center gap-1.5">
-              <Play size={14} className="text-primary" /> LAUNCH_PRODUCTION_BUILD
+              <Play size={14} className="text-primary" /> DISPARAR DEPLOY EM PRODUÇÃO
             </h3>
             <form onSubmit={handleLaunchDeploy} className="flex flex-col gap-4">
               <div className="flex flex-col gap-1.5">
-                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">PROJECT_TARGET *</label>
+                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">PROJETO DE DESTINO *</label>
                 <select
                   required
                   value={selectedProjectId}
@@ -242,7 +239,7 @@ export default function DeploysPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">COMMIT_MESSAGE *</label>
+                <label className="font-technical text-[10px] font-bold text-text-secondary tracking-wider">MENSAGEM DO COMMIT *</label>
                 <input
                   type="text"
                   required
@@ -256,15 +253,15 @@ export default function DeploysPage() {
               <button
                 type="submit"
                 disabled={building}
-                className="w-full bg-primary hover:bg-primary-hover text-text-primary font-technical text-xs font-bold py-2.5 flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+                className="w-full bg-primary hover:bg-primary-hover text-text-primary border border-border font-technical text-xs font-bold py-2.5 flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
               >
                 {building ? (
                   <>
-                    <Loader2 size={14} className="animate-spin" /> COMPILING_CODE...
+                    <Loader2 size={14} className="animate-spin" /> COMPILANDO CÓDIGO...
                   </>
                 ) : (
                   <>
-                    <Play size={14} /> TRIGGER_DEPLOY_PIPELINE
+                    <Play size={14} /> ACIONAR PIPELINE DE DEPLOY
                   </>
                 )}
               </button>
@@ -275,21 +272,21 @@ export default function DeploysPage() {
           <div className="lg:col-span-2 bg-black border border-border p-5 h-64 flex flex-col justify-between">
             <div className="flex items-center justify-between border-b border-border/30 pb-2 mb-3 text-text-secondary">
               <span className="font-technical text-[10px] font-bold tracking-widest flex items-center gap-1.5">
-                <TermIcon size={12} className="text-primary" /> LIVE_COMPILER_TERMINAL
+                <TermIcon size={12} className="text-primary" /> TERMINAL DO COMPILADOR EM TEMPO REAL
               </span>
-              <span className="font-technical text-[9px] font-bold text-text-muted">TURBOPACK_ENGINE</span>
+              <span className="font-technical text-[9px] font-bold text-text-muted">MOTOR TURBOPACK</span>
             </div>
             
             {/* Live Logs Stream */}
             <div className="flex-1 overflow-y-auto font-technical text-[11px] text-text-secondary flex flex-col gap-1.5 leading-relaxed bg-black p-2 max-h-44">
               {buildLogs.length === 0 ? (
                 <div className="h-full flex items-center justify-center text-text-muted italic">
-                  [CONSOLE_STANDBY] Aguardando acionamento de novo deploy...
+                  [SISTEMA EM ESPERA] Aguardando o disparo de um novo deploy...
                 </div>
               ) : (
                 buildLogs.map((log, idx) => (
                   <div key={idx} className={`${
-                    log.includes("STATUS: RUNNING") ? "text-status-success font-bold" : "text-text-primary"
+                    log.includes("STATUS: EM EXECUÇÃO") ? "text-status-success font-bold" : "text-text-primary"
                   }`}>
                     {log}
                   </div>
@@ -302,29 +299,29 @@ export default function DeploysPage() {
         {/* Database Build Ledger History */}
         <div className="bg-surface border border-border p-5">
           <h3 className="font-technical text-xs font-bold text-text-primary tracking-widest border-b border-border pb-3 mb-4 flex items-center gap-1.5">
-            <Clock size={14} className="text-primary" /> PRODUCTION_DEPLOYMENT_HISTORY
+            <Clock size={14} className="text-primary" /> HISTÓRICO DE DEPLOYS EM PRODUÇÃO
           </h3>
 
           {loading ? (
             <div className="h-32 flex flex-col items-center justify-center gap-2">
               <Loader2 size={24} className="text-primary animate-spin" />
-              <span className="font-technical text-xs text-text-muted tracking-wider">RETRIEVING_BUILD_HISTORY...</span>
+              <span className="font-technical text-xs text-text-muted tracking-wider">CARREGANDO HISTÓRICO DE DEPLOYS...</span>
             </div>
           ) : deploys.length === 0 ? (
             <div className="h-32 flex flex-col items-center justify-center gap-2 border border-dashed border-border bg-black/20">
-              <span className="font-technical text-xs text-text-muted">Nenhum registro histórico de deploy encontrado.</span>
+              <span className="font-technical text-xs text-text-muted">Nenhum registro de deploy localizado na base de dados.</span>
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b border-border text-text-muted font-technical text-[9px] font-bold tracking-widest bg-black/40">
-                    <th className="py-2.5 px-3">VAL_DATE</th>
-                    <th className="py-2.5 px-3">PROJECT_TARGET</th>
-                    <th className="py-2.5 px-3">COMMIT_MESSAGE</th>
+                    <th className="py-2.5 px-3">DATA VAL</th>
+                    <th className="py-2.5 px-3">PROJETO DE DESTINO</th>
+                    <th className="py-2.5 px-3">MENSAGEM DO COMMIT</th>
                     <th className="py-2.5 px-3">HASH</th>
-                    <th className="py-2.5 px-3">BUILD_STATUS</th>
-                    <th className="py-2.5 px-3 text-right">ACTIONS</th>
+                    <th className="py-2.5 px-3">STATUS DO DEPLOY</th>
+                    <th className="py-2.5 px-3 text-right">AÇÕES</th>
                   </tr>
                 </thead>
                 <tbody className="font-technical text-xs">
@@ -359,7 +356,7 @@ export default function DeploysPage() {
                             ? "border-status-danger/30 text-status-danger"
                             : "border-border text-text-secondary animate-pulse"
                         }`}>
-                          {d.status.toUpperCase()}
+                          {d.status === "success" ? "SUCESSO" : d.status === "failed" ? "FALHOU" : "COMPILANDO"}
                         </span>
                       </td>
 

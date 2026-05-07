@@ -45,13 +45,13 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   const menuItems = [
-    { href: "/dashboard", label: "PANEL_MONITOR", icon: <LayoutDashboard size={18} /> },
-    { href: "/dashboard/crm", label: "CRM_LEADS", icon: <Users size={18} /> },
-    { href: "/dashboard/projects", label: "PROJ_ENGINE", icon: <Briefcase size={18} /> },
-    { href: "/dashboard/finance", label: "FIN_BILLING", icon: <DollarSign size={18} /> },
-    { href: "/dashboard/deploys", label: "DEPLOY_PIPELINE", icon: <GitBranch size={18} /> },
-    { href: "/dashboard/cms", label: "CMS_MANAGER", icon: <FileText size={18} /> },
-    { href: "/dashboard/automations", label: "AUTO_MONITOR", icon: <Cpu size={18} /> },
+    { href: "/dashboard", label: "PAINEL DE CONTROLE", icon: <LayoutDashboard size={18} /> },
+    { href: "/dashboard/crm", label: "CRM & LEADS", icon: <Users size={18} /> },
+    { href: "/dashboard/projects", label: "PROJETOS & ETAPAS", icon: <Briefcase size={18} /> },
+    { href: "/dashboard/finance", label: "FINANCEIRO & CAIXA", icon: <DollarSign size={18} /> },
+    { href: "/dashboard/deploys", label: "ESTEIRA DE DEPLOI", icon: <GitBranch size={18} /> },
+    { href: "/dashboard/cms", label: "CMS & CONTEÚDOS", icon: <FileText size={18} /> },
+    { href: "/dashboard/automations", label: "LOGS DE AUTOMAÇÃO", icon: <Cpu size={18} /> },
   ];
 
   return (
@@ -64,7 +64,7 @@ export default function Sidebar() {
             CODIMDEV_OS
           </span>
           <span className="font-technical text-[10px] text-text-muted font-bold tracking-wider">
-            SYSTEM_VERSION_1.0
+            VERSÃO_SISTEMA_1.0
           </span>
         </div>
       </div>
@@ -72,7 +72,7 @@ export default function Sidebar() {
       {/* Navigation Links */}
       <nav className="flex-1 py-4 flex flex-col gap-0.5 overflow-y-auto">
         <div className="px-5 mb-2 text-[10px] font-technical font-bold tracking-widest text-text-muted">
-          OPERATIONAL_UNITS
+          UNIDADES OPERACIONAIS
         </div>
         {menuItems.map((item) => (
           <SidebarItem

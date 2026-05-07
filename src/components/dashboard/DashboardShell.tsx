@@ -47,12 +47,12 @@ export default function DashboardShell({ children }: DashboardShellProps) {
         <header className="h-16 border-b border-border bg-surface flex items-center justify-between px-6 flex-shrink-0">
           <div className="flex items-center gap-4">
             <h1 className="font-technical text-sm font-bold tracking-wider text-text-secondary">
-              OPERATIONAL_GRID
+              GRADE OPERACIONAL
             </h1>
             <span className="hidden md:inline-block h-4 w-px bg-border"></span>
             <div className="hidden md:flex items-center gap-1.5 font-technical text-[10px] bg-black px-2.5 py-1 border border-border">
               <span className="w-1.5 h-1.5 bg-status-success rounded-full animate-pulse"></span>
-              <span className="text-status-success font-bold tracking-widest">SYS_SECURE_ONLINE</span>
+              <span className="text-status-success font-bold tracking-widest">SISTEMA ATIVO & CONECTADO</span>
             </div>
           </div>
 
@@ -62,7 +62,7 @@ export default function DashboardShell({ children }: DashboardShellProps) {
             <div className="hidden sm:flex items-center gap-2">
               <Database size={14} className="text-text-secondary" />
               <div className="flex flex-col">
-                <span className="font-technical text-[9px] leading-none text-text-muted font-bold">DB_LATENCY (SP)</span>
+                <span className="font-technical text-[9px] leading-none text-text-muted font-bold">LATÊNCIA BANCO (SP)</span>
                 <span className="font-technical text-xs font-bold text-status-success">12ms</span>
               </div>
             </div>
@@ -71,7 +71,7 @@ export default function DashboardShell({ children }: DashboardShellProps) {
             <div className="hidden sm:flex items-center gap-2">
               <Wifi size={14} className="text-text-secondary" />
               <div className="flex flex-col">
-                <span className="font-technical text-[9px] leading-none text-text-muted font-bold">SYS_PING</span>
+                <span className="font-technical text-[9px] leading-none text-text-muted font-bold">PING DO SISTEMA</span>
                 <span className="font-technical text-xs font-bold text-status-success">{ping}ms</span>
               </div>
             </div>
@@ -80,8 +80,8 @@ export default function DashboardShell({ children }: DashboardShellProps) {
             <div className="flex items-center gap-2">
               <Cpu size={14} className="text-primary animate-pulse" />
               <div className="flex flex-col">
-                <span className="font-technical text-[9px] leading-none text-text-muted font-bold">BOT_KRAFLO</span>
-                <span className="font-technical text-xs font-bold text-status-success">STANDBY</span>
+                <span className="font-technical text-[9px] leading-none text-text-muted font-bold">ROBÔ KRAFLO</span>
+                <span className="font-technical text-xs font-bold text-status-success">EM ESPERA</span>
               </div>
             </div>
 
