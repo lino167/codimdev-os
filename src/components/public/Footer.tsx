@@ -43,8 +43,8 @@ export default function PublicFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/audit" className="font-technical text-[11px] text-[#A1A1AA] hover:text-[#FF0B0B] transition-colors">
-                  [ 02 ] SAAS AUDIT™
+                <Link href="/diagnostico" className="font-technical text-[11px] text-[#A1A1AA] hover:text-[#FF0B0B] transition-colors">
+                  [ 02 ] DIAGNÓSTICO
                 </Link>
               </li>
               <li>

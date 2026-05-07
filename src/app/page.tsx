@@ -91,10 +91,10 @@ export default function Home() {
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
               <Link
-                href="/audit"
+                href="/diagnostico"
                 className="w-full sm:w-auto inline-flex h-12 items-center justify-center gap-2 rounded-sm bg-[#FF0B0B] px-8 font-technical text-xs font-bold uppercase tracking-wider text-white hover:bg-[#D60606] transition-all shadow-[0_0_20px_rgba(255,11,11,0.25)] group"
               >
-                Solicitar Audit™
+                Diagnóstico Gratuito
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
@@ -231,14 +231,14 @@ export default function Home() {
               Pronto para blindar sua operação?
             </h2>
             <p className="text-xs sm:text-sm text-[#A1A1AA] leading-relaxed">
-              Solicite um diagnóstico técnico completo de 72 horas para identificar vazamento de tráfego, lentidão de código e gargalos invisíveis de conversão.
+              Solicite um diagnóstico operacional gratuito para mapear gargalos de fluxo, lentidão de código e automatizar sua operação física ou digital.
             </p>
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
-                href="/audit"
+                href="/diagnostico"
                 className="w-full sm:w-auto inline-flex h-12 items-center justify-center gap-2 rounded-sm bg-[#FF0B0B] px-8 font-technical text-xs font-bold uppercase tracking-wider text-white hover:bg-[#D60606] transition-all"
               >
-                Garantir Meu SaaS Audit™
+                Garantir Meu Diagnóstico Gratuito
                 <Sparkles className="h-4 w-4 animate-pulse" />
               </Link>
               <Link

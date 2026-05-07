@@ -11,7 +11,7 @@ export default function PublicHeader() {
 
   const navItems = [
     { name: "Início", href: "/" },
-    { name: "SaaS Audit™", href: "/audit" },
+    { name: "Diagnóstico", href: "/diagnostico" },
     { name: "Performance LPs", href: "/performance" },
     { name: "Portfólio", href: "/portfolio" },
   ];
@@ -67,10 +67,10 @@ export default function PublicHeader() {
               Dashboard
             </Link>
             <Link
-              href="/audit"
+              href="/diagnostico"
               className="inline-flex h-9 items-center justify-center rounded-sm bg-[#FF0B0B] px-4 font-technical text-xs font-bold uppercase tracking-wider text-white hover:bg-[#D60606] transition-all shadow-[0_0_15px_rgba(255,11,11,0.2)]"
             >
-              Solicitar Audit™
+              Diagnóstico Gratuito
             </Link>
           </div>
 
@@ -121,11 +121,11 @@ export default function PublicHeader() {
               Dashboard
             </Link>
             <Link
-              href="/audit"
+              href="/diagnostico"
               onClick={() => setMobileMenuOpen(false)}
               className="flex h-10 items-center justify-center rounded-sm bg-[#FF0B0B] font-technical text-xs font-bold uppercase tracking-wider text-white hover:bg-[#D60606] transition-colors"
             >
-              Solicitar Audit™
+              Diagnóstico Gratuito
             </Link>
           </div>
         </div>
