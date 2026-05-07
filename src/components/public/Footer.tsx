@@ -66,11 +66,6 @@ export default function PublicFooter() {
               Terminal de Controle
             </h3>
             <ul className="space-y-2.5">
-              <li>
-                <Link href="/dashboard" className="font-technical text-[11px] text-[#A1A1AA] hover:text-white transition-colors">
-                  [ &gt;_ ] ENTRAR NO DASHBOARD
-                </Link>
-              </li>
               <li className="flex items-center gap-2 font-technical text-[11px] text-[#52525B]">
                 <Activity className="h-3 w-3 text-[#FF0B0B] animate-pulse" />
                 TELEMETRY: ACTIVE

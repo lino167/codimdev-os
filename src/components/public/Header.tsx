@@ -61,12 +61,6 @@ export default function PublicHeader() {
           {/* Action Buttons */}
           <div className="hidden md:flex items-center gap-4">
             <Link
-              href="/dashboard"
-              className="inline-flex h-9 items-center justify-center rounded-sm border border-[#2E3A2F] bg-black px-4 font-technical text-xs uppercase tracking-wider text-[#A1A1AA] hover:border-[#FF0B0B] hover:text-white transition-all"
-            >
-              Dashboard
-            </Link>
-            <Link
               href="/diagnostico"
               className="inline-flex h-9 items-center justify-center rounded-sm bg-[#FF0B0B] px-4 font-technical text-xs font-bold uppercase tracking-wider text-white hover:bg-[#D60606] transition-all shadow-[0_0_15px_rgba(255,11,11,0.2)]"
             >
@@ -113,13 +107,6 @@ export default function PublicHeader() {
             })}
           </nav>
           <div className="flex flex-col gap-3 pt-4 border-t border-[#2E3A2F]">
-            <Link
-              href="/dashboard"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex h-10 items-center justify-center rounded-sm border border-[#2E3A2F] bg-[#0a0a0a] font-technical text-xs uppercase tracking-wider text-[#A1A1AA] hover:text-white transition-colors"
-            >
-              Dashboard
-            </Link>
             <Link
               href="/diagnostico"
               onClick={() => setMobileMenuOpen(false)}
