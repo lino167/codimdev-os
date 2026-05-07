@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { 
   ArrowRight, 
@@ -12,7 +12,10 @@ import {
   Terminal as TerminalIcon,
   CheckCircle2,
   Sparkles,
-  ArrowUpRight
+  ArrowUpRight,
+  Database,
+  Workflow,
+  Layout
 } from "lucide-react";
 import PublicHeader from "@/components/public/Header";
 import PublicFooter from "@/components/public/Footer";
@@ -30,6 +33,81 @@ export default function Home() {
       setLatency(Math.floor(Math.random() * 8) + 8);
     }, 1000);
     return () => clearInterval(timer);
+  }, []);
+
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let width = (canvas.width = canvas.offsetWidth || window.innerWidth);
+    let height = (canvas.height = canvas.offsetHeight || 600);
+
+    const particles: Array<{ x: number; y: number; vx: number; vy: number; r: number }> = [];
+    const count = 35;
+
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        r: Math.random() * 1.5 + 0.5,
+      });
+    }
+
+    const handleResize = () => {
+      if (!canvas) return;
+      width = canvas.width = canvas.offsetWidth || window.innerWidth;
+      height = canvas.height = canvas.offsetHeight || 600;
+    };
+    window.addEventListener("resize", handleResize);
+
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      // Draw active connections
+      ctx.strokeStyle = "rgba(46, 58, 47, 0.2)";
+      ctx.lineWidth = 0.5;
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+          if (dist < 150) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw glowing precision particles
+      for (const p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255, 11, 11, 0.35)";
+        ctx.fill();
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+      }
+
+      animationFrameId = requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const techStack = [
@@ -133,52 +211,56 @@ export default function Home() {
       <PublicHeader />
 
       <main className="overflow-x-hidden w-full max-w-full flex-1">
-        
-        {/* Cinematic Center Hero */}
-        <section className="relative py-24 md:py-36 border-b border-[#2E3A2F] flex flex-col items-center justify-center">
-          {/* Grid de Pontos Industrial e Gradiente Cinematográfico */}
+        <section className="relative py-28 md:py-40 border-b border-[#2E3A2F] flex flex-col items-center justify-center overflow-hidden">
+          {/* Grid de Pontos Industrial e Gradiente Cinematográfico Ativo */}
           <div className="absolute inset-0 z-0 bg-[radial-gradient(#2e3a2f_1.2px,transparent_1.2px)] [background-size:32px_32px] opacity-25 pointer-events-none" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#FF0B0B]/5 rounded-full blur-[140px] pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#FF0B0B]/5 rounded-full blur-[140px] pointer-events-none animate-pulse-glow" />
+          
+          {/* Laser Scanline Animated */}
+          <div className="absolute left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#FF0B0B]/30 to-transparent pointer-events-none" style={{ animation: 'scanline 10s cubic-bezier(0.4, 0, 0.2, 1) infinite' }} />
+
+
 
           <div className="mx-auto max-w-6xl px-4 text-center relative z-10 flex flex-col items-center">
-            {/* Tag de Telemetria Ativa */}
-            <div className="inline-flex items-center gap-2 border border-[#2E3A2F] bg-[#0a0a0a] px-3.5 py-1.5 rounded-sm mb-8">
+            {/* Tag de Telemetria Ativa - Fade up 1 */}
+            <div className="inline-flex items-center gap-2 border border-[#2E3A2F] bg-[#0a0a0a] px-3.5 py-1.5 rounded-sm mb-8 animate-fade-up-1">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF0B0B] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF0B0B]"></span>
               </span>
-              <span className="font-technical text-[10px] text-[#A1A1AA] tracking-widest uppercase">
-                ENGINE RUNNING // LATENCY: {latency}MS // {simulationTime || "ACTIVE"}
+              <span className="font-technical text-[10px] text-[#A1A1AA] tracking-widest uppercase font-bold">
+                SISTEMAS SOB MEDIDA // OPERAÇÃO CENTRALIZADA // AUTOMAÇÃO ATIVA
               </span>
             </div>
 
-            {/* H1 - Iron Rule of 2 Lines */}
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-display font-medium leading-[1.08] tracking-tight max-w-5xl">
-              Sistemas digitais de alta precisão que{" "}
+            {/* H1 - Balanced and Impactful - Fade up 2 */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-medium leading-[1.15] tracking-tight max-w-4xl animate-fade-up-2">
+              Construímos os sistemas e{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-[#FF0B0B] font-semibold">
-                convertem e escalam
+                automações sob medida
               </span>
-              <span className="inline-block w-14 sm:w-20 h-6 sm:h-9 rounded-full align-middle bg-cover bg-center mx-2 border border-[#FF0B0B]/30 grayscale opacity-80" style={{backgroundImage: 'url("https://picsum.photos/seed/tech/400/200")'}}></span>
-              sem falhas técnicas.
+              <span className="inline-block w-10 sm:w-16 h-5 sm:h-8 rounded-full align-middle bg-cover bg-center mx-2 border border-[#FF0B0B]/30 grayscale opacity-80" style={{backgroundImage: 'url("https://picsum.photos/seed/industrial/400/200")'}}></span>
+              que eliminam o caos operacional.
             </h1>
 
-            {/* Subtitle */}
-            <p className="max-w-2xl mx-auto text-sm sm:text-base text-[#A1A1AA] leading-relaxed mt-8">
-              Unimos o pragmatismo e precisão mecânica do chão de fábrica com engenharia de software de elite para blindar sua operação digital contra lentidão e ineficiência técnica.
+            {/* Subtitle - Fade up 3 */}
+            <p className="max-w-3xl mx-auto text-sm sm:text-base text-[#A1A1AA] leading-relaxed mt-8 animate-fade-up-3">
+              Substitua planilhas lentas, retrabalho e tarefas manuais confusas por softwares rápidos, integrados e extremamente estáveis que organizam sua operação e blindam sua empresa contra falhas humanas.
             </p>
 
-            {/* CTAs de Alto Contraste */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10 w-full sm:w-auto">
+            {/* CTAs de Alto Contraste - Fade up 4 */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10 w-full sm:w-auto animate-fade-up-4">
               <Link
                 href="/diagnostico"
-                className="w-full sm:w-auto inline-flex h-12 items-center justify-center gap-2 rounded-sm bg-[#FF0B0B] px-8 font-technical text-xs font-bold uppercase tracking-wider text-white hover:bg-[#D60606] transition-all shadow-[0_0_20px_rgba(255,11,11,0.3)] group"
+                className="w-full sm:w-auto inline-flex h-12 items-center justify-center gap-2 rounded-sm bg-[#FF0B0B] px-8 font-technical text-xs font-bold uppercase tracking-wider text-white hover:bg-[#D60606] transition-all shadow-[0_0_25px_rgba(255,11,11,0.35)] group relative overflow-hidden"
               >
+                <span className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
                 Garantir Diagnóstico Gratuito
-                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform text-white" />
               </Link>
               <Link
                 href="/portfolio"
-                className="w-full sm:w-auto inline-flex h-12 items-center justify-center rounded-sm border border-[#2E3A2F] bg-black px-8 font-technical text-xs uppercase tracking-wider text-[#A1A1AA] hover:border-white hover:text-white transition-all"
+                className="w-full sm:w-auto inline-flex h-12 items-center justify-center rounded-sm border border-[#2E3A2F] bg-black px-8 font-technical text-xs font-bold uppercase tracking-wider text-[#A1A1AA] hover:border-white hover:text-white transition-all relative group"
               >
                 Ver Portfólio
               </Link>
@@ -201,12 +283,135 @@ export default function Home() {
               0% { transform: translateX(0%); }
               100% { transform: translateX(-50%); }
             }
+            @keyframes fade-up {
+              0% { opacity: 0; transform: translateY(20px); }
+              100% { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes scanline {
+              0% { top: 0%; }
+              100% { top: 100%; }
+            }
+            @keyframes video-loop {
+              0%, 100% { opacity: 0; }
+              8%, 92% { opacity: 0.22; }
+            }
+            @keyframes pulse-glow {
+              0%, 100% { opacity: 0.2; transform: translate(-50%, -50%) scale(1); }
+              50% { opacity: 0.4; transform: translate(-50%, -50%) scale(1.1); }
+            }
             .animate-marquee {
               display: inline-flex;
               animation: marquee 40s linear infinite;
             }
+            .animate-fade-up-1 {
+              animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            }
+            .animate-fade-up-2 {
+              opacity: 0;
+              animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+            }
+            .animate-fade-up-3 {
+              opacity: 0;
+              animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+            }
+            .animate-fade-up-4 {
+              opacity: 0;
+              animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
+            }
+            .animate-pulse-glow {
+              animation: pulse-glow 6s ease-in-out infinite;
+            }
+            .animate-video-loop {
+              animation: video-loop 7s ease-in-out infinite;
+            }
           `}</style>
         </div>
+
+        {/* What We Build Section */}
+        <section className="py-24 bg-black border-b border-[#2E3A2F]">
+          <div className="mx-auto max-w-6xl px-4 w-full">
+            <div className="max-w-3xl mb-16 space-y-4">
+              <div className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#FF0B0B] animate-pulse" />
+                <span className="font-technical text-[10px] text-[#FF0B0B] tracking-widest uppercase font-bold">
+                  NOSSAS SOLUÇÕES
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-display font-medium tracking-tight">
+                O que construímos para o seu negócio
+              </h2>
+              <p className="text-xs sm:text-sm text-[#A1A1AA] leading-relaxed max-w-2xl">
+                Desenvolvemos ferramentas digitais focadas em eficiência e praticidade. Se você precisa de qualquer uma dessas soluções, a CodimDev sabe exatamente como construir:
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Solution 1 */}
+              <div className="border border-[#2E3A2F] bg-[#050505] p-6 flex flex-col justify-between hover:border-[#FF0B0B]/50 transition-all duration-300 relative overflow-hidden group">
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <Database className="h-5 w-5 text-[#FF0B0B]" />
+                    <h3 className="font-technical text-sm font-bold uppercase tracking-wider text-white">Sistemas Internos & ERPs</h3>
+                  </div>
+                  <p className="text-xs text-[#A1A1AA] leading-relaxed">
+                    Precisa centralizar estoque, ordens de serviço, clientes ou contratos? Desenvolvemos softwares rápidos e estáveis que se moldam perfeitamente à rotina comercial da sua empresa, sem cobrar mensalidades abusivas por usuário.
+                  </p>
+                </div>
+                <div className="mt-6 pt-4 border-t border-[#2E3A2F]/40 flex items-center justify-between font-technical text-[9px] text-text-muted">
+                  <span>IDEAL PARA: CENTRALIZAR OPERAÇÃO</span>
+                  <span className="text-primary font-bold">SOB MEDIDA</span>
+                </div>
+              </div>
+
+              {/* Solution 2 */}
+              <div className="border border-[#2E3A2F] bg-[#050505] p-6 flex flex-col justify-between hover:border-[#FF0B0B]/50 transition-all duration-300 relative overflow-hidden group">
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <Layout className="h-5 w-5 text-[#FF0B0B]" />
+                    <h3 className="font-technical text-sm font-bold uppercase tracking-wider text-white">Dashboards & Painéis Financeiros</h3>
+                  </div>
+                  <p className="text-xs text-[#A1A1AA] leading-relaxed">
+                    Aposente de vez as planilhas confusas e desatualizadas. Integre suas vendas, faturamento, despesas operacionais e dados bancários em um único painel visual para tomar decisões com dados 100% confiáveis.
+                  </p>
+                </div>
+                <div className="mt-6 pt-4 border-t border-[#2E3A2F]/40 flex items-center justify-between font-technical text-[9px] text-text-muted">
+                  <span>IDEAL PARA: VISUALIZAR DADOS</span>
+                  <span className="text-primary font-bold">TEMPO REAL</span>
+                </div>
+              </div>
+
+              {/* Solution 3 */}
+              <div className="border border-[#2E3A2F] bg-[#050505] p-6 flex flex-col justify-between hover:border-[#FF0B0B]/50 transition-all duration-300 relative overflow-hidden group">
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <Workflow className="h-5 w-5 text-[#FF0B0B]" />
+                    <h3 className="font-technical text-sm font-bold uppercase tracking-wider text-white">Automações de Processos & WhatsApp</h3>
+                  </div>
+                  <p className="text-xs text-[#A1A1AA] leading-relaxed">
+                    Conectamos suas ferramentas de vendas, WhatsApp, CRMs, planilhas e meios de pagamento para que as tarefas repetitivas, como envio de cobranças e atualizações de status, rodem sozinhas 24h por dia.
+                  </p>
+                </div>
+                <div className="mt-6 pt-4 border-t border-[#2E3A2F]/40 flex items-center justify-between font-technical text-[9px] text-text-muted">
+                  <span>IDEAL PARA: ELIMINAR TRABALHO MANUAL</span>
+                  <span className="text-primary font-bold">100% AUTOMÁTICO</span>
+                </div>
+              </div>
+
+              {/* Solution 4 */}
+              <div className="border border-[#2E3A2F] bg-[#050505] p-6 flex flex-col justify-between hover:border-[#FF0B0B]/50 transition-all duration-300 relative overflow-hidden group">
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <CheckCircle2 className="h-5 w-5 text-[#FF0B0B]" />
+                    <h3 className="font-technical text-sm font-bold uppercase tracking-wider text-white">Portais de Clientes & Plataformas Web</h3>
+                  </div>
+                  <p className="text-xs text-[#A1A1AA] leading-relaxed">
+                    Construímos portais de autoatendimento para seus clientes (segunda via, download de relatórios, acompanhamento de projetos), áreas de membros exclusivas e plataformas web completas integradas a banco de dados.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Interactive Engine Bento Grid Section */}
         <section className="py-24 bg-black relative border-b border-[#2E3A2F]">
@@ -215,14 +420,14 @@ export default function Home() {
               <div className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#FF0B0B] animate-pulse" />
                 <span className="font-technical text-[10px] text-[#FF0B0B] tracking-widest uppercase font-bold">
-                  METODOLOGIA PROPRIETÁRIA
+                  COMO TRABALHAMOS
                 </span>
               </div>
               <h2 className="text-3xl sm:text-5xl font-display font-medium tracking-tight">
-                CodimDev Engine™: O Protocolo de Precisão
+                CodimDev Engine™: O Caminho para a Eficiência
               </h2>
               <p className="text-xs sm:text-sm text-[#A1A1AA] leading-relaxed max-w-2xl">
-                Nossa esteira técnica de engenharia elimina a adivinhação. Cada fase funciona como uma engrenagem sincronizada para extrair o máximo potencial do seu ativo digital.
+                Nossa esteira de desenvolvimento garante que o software seja entregue exatamente como sua empresa precisa, sem surpresas ou atrasos:
               </p>
             </div>
 
@@ -230,81 +435,81 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-4 grid-flow-dense gap-4">
               
               {/* Card 01 - Extraction */}
-              <div className="md:col-span-2 md:row-span-1 border border-[#2E3A2F] bg-surface p-6 flex flex-col justify-between hover:border-[#FF0B0B]/50 transition-all duration-300 relative overflow-hidden group">
+              <div className="md:col-span-2 md:row-span-1 border border-[#2E3A2F] bg-[#050505] p-6 flex flex-col justify-between hover:border-[#FF0B0B]/50 transition-all duration-300 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 h-24 w-24 bg-[#FF0B0B]/[0.01] rounded-bl-full pointer-events-none" />
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="font-technical text-2xl font-bold text-text-muted">01</span>
                     <Cpu className="h-5 w-5 text-text-muted group-hover:text-[#FF0B0B] transition-colors" />
                   </div>
-                  <h3 className="font-technical text-sm font-bold uppercase tracking-wider text-white">Signal Extraction</h3>
-                  <span className="font-technical text-[9px] text-[#FF0B0B] tracking-wider uppercase block mt-1">DISCOVERY & TELEMETRY</span>
+                  <h3 className="font-technical text-sm font-bold uppercase tracking-wider text-white">Diagnóstico Operacional</h3>
+                  <span className="font-technical text-[9px] text-[#FF0B0B] tracking-wider uppercase block mt-1">MAPEAMENTO DE PROCESSOS</span>
                   <p className="text-xs text-[#A1A1AA] mt-3 leading-relaxed">
-                    Mapeamos gargalos invisíveis no fluxo de dados de sua aplicação e identificamos onde a lentidão destrói sua conversão.
+                    Mapeamos os processos atuais da sua empresa e identificamos onde você está perdendo tempo e dinheiro devido a planilhas lentas e tarefas manuais repetitivas.
                   </p>
                 </div>
                 <div className="mt-6 pt-4 border-t border-[#2E3A2F]/40 flex items-center justify-between">
-                  <span className="font-technical text-[9px] text-text-muted">TELEMETRY ANALYTICS APIS</span>
-                  <span className="font-technical text-[9px] text-primary font-bold">100% OPERACIONAL</span>
+                  <span className="font-technical text-[9px] text-text-muted">IDENTIFICAÇÃO DE GARGALOS</span>
+                  <span className="font-technical text-[9px] text-primary font-bold">RELEVANTE</span>
                 </div>
               </div>
 
               {/* Card 02 - Blueprint */}
-              <div className="md:col-span-2 md:row-span-1 border border-[#2E3A2F] bg-surface p-6 flex flex-col justify-between hover:border-[#FF0B0B]/50 transition-all duration-300 relative overflow-hidden group">
+              <div className="md:col-span-2 md:row-span-1 border border-[#2E3A2F] bg-[#050505] p-6 flex flex-col justify-between hover:border-[#FF0B0B]/50 transition-all duration-300 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 h-24 w-24 bg-[#FF0B0B]/[0.01] rounded-bl-full pointer-events-none" />
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="font-technical text-2xl font-bold text-text-muted">02</span>
                     <Layers className="h-5 w-5 text-text-muted group-hover:text-[#FF0B0B] transition-colors" />
                   </div>
-                  <h3 className="font-technical text-sm font-bold uppercase tracking-wider text-white">System Blueprint</h3>
-                  <span className="font-technical text-[9px] text-[#FF0B0B] tracking-wider uppercase block mt-1">ARCHITECTURE & DESIGN</span>
+                  <h3 className="font-technical text-sm font-bold uppercase tracking-wider text-white">Desenho da Solução</h3>
+                  <span className="font-technical text-[9px] text-[#FF0B0B] tracking-wider uppercase block mt-1">BLUEPRINT E FLUXOS</span>
                   <p className="text-xs text-[#A1A1AA] mt-3 leading-relaxed">
-                    Modelamos uma arquitetura sob medida, removendo redundâncias e projetando um design de alta densidade no padrão Dark Tech-Modernist.
+                    Modelamos o seu sistema ou automação sob medida, mostrando de forma visual e simples como as informações vão fluir entre suas áreas de forma 100% organizada.
                   </p>
                 </div>
                 <div className="mt-6 pt-4 border-t border-[#2E3A2F]/40 flex items-center justify-between">
-                  <span className="font-technical text-[9px] text-text-muted">POSTGRES & RLS DESIGN</span>
+                  <span className="font-technical text-[9px] text-text-muted">ESTRUTURAÇÃO ORGANIZADA</span>
                   <span className="font-technical text-[9px] text-primary font-bold">PREPARADO</span>
                 </div>
               </div>
 
               {/* Card 03 - Precision Build */}
-              <div className="md:col-span-2 md:row-span-1 border border-[#2E3A2F] bg-surface p-6 flex flex-col justify-between hover:border-[#FF0B0B]/50 transition-all duration-300 relative overflow-hidden group">
+              <div className="md:col-span-2 md:row-span-1 border border-[#2E3A2F] bg-[#050505] p-6 flex flex-col justify-between hover:border-[#FF0B0B]/50 transition-all duration-300 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 h-24 w-24 bg-[#FF0B0B]/[0.01] rounded-bl-full pointer-events-none" />
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="font-technical text-2xl font-bold text-text-muted">03</span>
                     <TerminalIcon className="h-5 w-5 text-text-muted group-hover:text-[#FF0B0B] transition-colors" />
                   </div>
-                  <h3 className="font-technical text-sm font-bold uppercase tracking-wider text-white">Precision Build</h3>
-                  <span className="font-technical text-[9px] text-[#FF0B0B] tracking-wider uppercase block mt-1">SOFTWARE ENGINEERING</span>
+                  <h3 className="font-technical text-sm font-bold uppercase tracking-wider text-white">Construção de Precisão</h3>
+                  <span className="font-technical text-[9px] text-[#FF0B0B] tracking-wider uppercase block mt-1">DESENVOLVIMENTO ÁGIL</span>
                   <p className="text-xs text-[#A1A1AA] mt-3 leading-relaxed">
-                    Desenvolvemos sua plataforma utilizando Next.js, TypeScript e bancos de dados em tempo real no Supabase, garantindo código otimizado.
+                    Desenvolvemos o software de forma ágil, utilizando tecnologias seguras e modernas para garantir telas rápidas, limpas e sem travamentos no seu dia a dia comercial.
                   </p>
                 </div>
                 <div className="mt-6 pt-4 border-t border-[#2E3A2F]/40 flex items-center justify-between">
-                  <span className="font-technical text-[9px] text-text-muted">NEXT.JS 14 APP ROUTER</span>
+                  <span className="font-technical text-[9px] text-text-muted">INTERFACE RÁPIDA E LIMPA</span>
                   <span className="font-technical text-[9px] text-primary font-bold">ESTÁVEL</span>
                 </div>
               </div>
 
               {/* Card 04 - Scale Protocol */}
-              <div className="md:col-span-2 md:row-span-1 border border-[#2E3A2F] bg-surface p-6 flex flex-col justify-between hover:border-[#FF0B0B]/50 transition-all duration-300 relative overflow-hidden group">
+              <div className="md:col-span-2 md:row-span-1 border border-[#2E3A2F] bg-[#050505] p-6 flex flex-col justify-between hover:border-[#FF0B0B]/50 transition-all duration-300 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 h-24 w-24 bg-[#FF0B0B]/[0.01] rounded-bl-full pointer-events-none" />
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="font-technical text-2xl font-bold text-text-muted">04</span>
                     <GitBranch className="h-5 w-5 text-text-muted group-hover:text-[#FF0B0B] transition-colors" />
                   </div>
-                  <h3 className="font-technical text-sm font-bold uppercase tracking-wider text-white">Scale Protocol</h3>
-                  <span className="font-technical text-[9px] text-[#FF0B0B] tracking-wider uppercase block mt-1">PIPELINES & AUTOMATION</span>
+                  <h3 className="font-technical text-sm font-bold uppercase tracking-wider text-white">Integração Total</h3>
+                  <span className="font-technical text-[9px] text-[#FF0B0B] tracking-wider uppercase block mt-1">CONEXÃO DE SISTEMAS</span>
                   <p className="text-xs text-[#A1A1AA] mt-3 leading-relaxed">
-                    Implantamos fluxos contínuos de deploy com pipelines de automação eficientes e telemetria ativa para monitoramento 24/7.
+                    Conectamos seu novo software com as ferramentas que você já utiliza na sua empresa, automatizando dados de estoque, CRM e notas fiscais de forma sincronizada.
                   </p>
                 </div>
                 <div className="mt-6 pt-4 border-t border-[#2E3A2F]/40 flex items-center justify-between">
-                  <span className="font-technical text-[9px] text-text-muted">CI/CD PIPELINES & TURBOPACK</span>
+                  <span className="font-technical text-[9px] text-text-muted">SINCRONISMO AUTOMÁTICO</span>
                   <span className="font-technical text-[9px] text-primary font-bold">ATIVO</span>
                 </div>
               </div>
