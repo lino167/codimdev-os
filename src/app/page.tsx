@@ -114,57 +114,63 @@ export default function Home() {
     {
       name: "NEXT.JS",
       logo: (
-        <svg viewBox="0 0 24 24" className="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm1.066 12.186l-4.526-6.104v5.334H7.234V8.125h1.272l4.524 6.103V8.125h1.306v6.061h-1.27zm1.196-.447c-.522-.756-1.077-1.577-1.636-2.4l.872-1.232c.552.79 1.07 1.554 1.564 2.316l-.8 1.316z"/>
+        <svg viewBox="0 0 128 128" className="w-4.5 h-4.5 fill-white" xmlns="http://www.w3.org/2000/svg">
+          <path d="M64 0C28.66 0 0 28.66 0 64s28.66 64 64 64 64-28.66 64-64S99.34 0 64 0zm37.6 96.4L58.12 40.16h-5.6v47.68h4.64V47.36l38.24 53.6c2.08-1.44 4.08-3.04 5.6-4.56zm4.8-12.8V40.16h-4.64V80l4.64 3.6z"/>
         </svg>
       )
     },
     {
       name: "SUPABASE",
       logo: (
-        <svg viewBox="0 0 24 24" className="w-4 h-4 fill-[#3ECF8E]" xmlns="http://www.w3.org/2000/svg">
-          <path d="M21.36 11.12h-7.14l3.19-8.4a.5.5 0 0 0-.8-.54L4.17 11.83a.5.5 0 0 0 .33.87h7.14l-3.19 8.4a.5.5 0 0 0 .8.54l12.44-9.65a.5.5 0 0 0-.33-.87z"/>
+        <svg viewBox="0 0 24 24" className="w-4.5 h-4.5" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#3ECF8E" d="M21.362 11.104h-7.143l3.19-8.4a.5.5 0 0 0-.8-.543L4.172 11.815a.5.5 0 0 0 .33.869h7.143l-3.19 8.4a.5.5 0 0 0 .8.543l12.438-9.654a.5.5 0 0 0-.33-.869z"/>
         </svg>
       )
     },
     {
       name: "TYPESCRIPT",
       logo: (
-        <svg viewBox="0 0 24 24" className="w-4 h-4 fill-[#3178C6]" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 3h18v18H3V3zm11.53 10.42c-.22-.38-.56-.63-1.01-.77-.45-.13-1.03-.23-1.74-.29-.44-.04-.75-.11-.94-.21-.19-.1-.28-.27-.28-.51 0-.21.09-.37.28-.48.19-.11.49-.16.91-.16.42 0 .74.08.96.25.22.17.38.45.47.85h2.15c-.12-.91-.51-1.59-1.16-2.03-.65-.44-1.57-.66-2.75-.66-1.15 0-2.04.24-2.66.73-.62.49-.93 1.16-.93 2.01 0 .76.24 1.34.72 1.74.48.4 1.21.66 2.19.78.74.09 1.25.19 1.53.31.28.12.42.34.42.66 0 .28-.12.49-.37.63-.25.14-.64.21-1.16.21-.6 0-1.03-.11-1.29-.33-.26-.22-.44-.61-.54-1.17H7c.07 1.01.48 1.77 1.22 2.29.74.52 1.8.78 3.16.78 1.24 0 2.21-.26 2.91-.77.7-.51 1.05-1.25 1.05-2.21 0-.75-.27-1.34-.81-1.78z"/>
+        <svg viewBox="0 0 128 128" className="w-4.5 h-4.5" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.5 1.5h125v125H1.5z" fill="#3178c6"/>
+          <path d="M117.2 96.6c-1.5-2.2-4.1-3.6-7.7-4.1-3.7-.6-8.5-.8-14.4-.8-3.6 0-6.2.6-7.8 1.7-1.6 1.1-2.4 2.8-2.4 5.1 0 2.1.8 3.7 2.3 4.8 1.5 1.1 4.1 1.7 7.7 1.8l12.6.4c5.9.2 10.5 1.4 13.9 3.5 3.4 2.1 5.1 5.7 5.1 10.7 0 5.4-2.1 9.5-6.3 12.3-4.2 2.8-10.4 4.2-18.5 4.2-8.5 0-14.9-1.5-19.3-4.5-4.4-3-6.8-8-7.2-15h17.9c.3 2.7 1.4 4.8 3.3 6.1 1.9 1.3 5 1.9 9.3 1.9 3.9 0 6.6-.5 8.1-1.5s2.2-2.5 2.2-4.5c0-1.9-.7-3.3-2.1-4.2-1.4-.9-3.9-1.5-7.5-1.6l-12.7-.4c-5.7-.2-10.2-1.3-13.3-3.4-3.1-2.1-4.7-5.5-4.7-10.3 0-5 2-8.9 5.9-11.6s10-4.1 18.2-4.1c7.7 0 13.7 1.3 18 3.9s6.6 6.9 6.9 12.9H117.2zm-67.7-1.8H31.6v45.4H13.1V94.8h-18v-15H49.5v15z" fill="#fff"/>
         </svg>
       )
     },
     {
       name: "TURBOPACK",
       logo: (
-        <svg viewBox="0 0 256 256" className="w-4 h-4" xmlns="http://www.w3.org/2000/svg">
-          <path d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0zm0 216c-48.6 0-88-39.4-88-88s39.4-88 88-88 88 39.4 88 88-39.4 88-88 88z" fill="#0070F3"/>
-          <path d="M152 72h-48l-32 56 32 56h48l32-56-32-56zm-12 84h-24l-14-28 14-28h24l14 28-14 28z" fill="#F81CE5"/>
+        <svg viewBox="0 0 24 24" className="w-4.5 h-4.5" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <path d="M12 2L2 14h9l-2 8 10-12h-9l2-8z" fill="url(#turbo-gradient)" stroke="#FF007A" strokeWidth="1" strokeLinejoin="round"/>
+          <defs>
+            <linearGradient id="turbo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#FF007A" />
+              <stop offset="100%" stopColor="#7928CA" />
+            </linearGradient>
+          </defs>
         </svg>
       )
     },
     {
       name: "N8N",
       logo: (
-        <svg viewBox="0 0 24 24" className="w-4 h-4 fill-[#FF6C37]" xmlns="http://www.w3.org/2000/svg">
-          <path d="M1.5 8.5C.67 8.5 0 9.17 0 10v4c0 .83.67 1.5 1.5 1.5h1.59l4.5 4.5c.3.3.7.5 1.13.5h6.56c.43 0 .83-.2 1.13-.5l4.5-4.5h1.59c.83 0 1.5-.67 1.5-1.5v-4c0-.83-.67-1.5-1.5-1.5H21.2l-4.5-4.5c-.3-.3-.7-.5-1.13-.5H9.01c-.43 0-.83.2-1.13.5L3.38 8.5H1.5zm11.3 7.82V14h-1.6v2.32c-.52-.1-1.03-.31-1.48-.63l1.13-1.13c.24.11.51.18.79.19v-.75h-.75c0-.28-.07-.55-.19-.79l1.13-1.13c.32.45.53.96.63 1.48H14v1.6h-2.32c.1.52.31 1.03.63 1.48l-1.13 1.13c-.24-.11-.51-.18-.79-.19v.75h.75c0 .28.07.55.19.79l-1.13 1.13c-.32-.45-.53-.96-.63-1.48z"/>
+        <svg viewBox="0 0 24 24" className="w-4.5 h-4.5" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#FF6C37" fillRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm1.75 6.25a.75.75 0 0 0-1.5 0v3.086l-2.18-2.18a.75.75 0 1 0-1.06 1.06l3.47 3.47a.75.75 0 0 0 1.06 0l3.47-3.47a.75.75 0 1 0-1.06-1.06l-2.18 2.18V8.25zm-3.5 7.5a.75.75 0 0 1 1.5 0v-3.086l2.18 2.18a.75.75 0 1 1 1.06-1.06l-3.47-3.47a.75.75 0 0 1-1.06 0l-3.47 3.47a.75.75 0 1 1 1.06 1.06l2.18-2.18v3.086z" clipRule="evenodd"/>
         </svg>
       )
     },
     {
       name: "STRIPE",
       logo: (
-        <svg viewBox="0 0 24 24" className="w-4 h-4 fill-[#635BFF]" xmlns="http://www.w3.org/2000/svg">
-          <path d="M13.962 8.475c0-1.042-.716-1.558-1.921-1.558-1.217 0-2.316.483-3.216 1.058V3.275C9.9 2.767 11.233 2.5 12.566 2.5c3.208 0 5.375 1.542 5.375 4.542 0 4.691-6.191 3.958-6.191 6.041 0 .992.8 1.442 1.95 1.442 1.442 0 2.7-.583 3.65-1.2v4.8c-1.125.592-2.583.892-3.892.892-3.417 0-5.617-1.633-5.617-4.592.001-4.75 6.121-3.95 6.121-5.95z"/>
+        <svg viewBox="0 0 40 16" className="w-9 h-4.5" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.686 6.304C4.686 5.158 5.485 4.7 6.824 4.7c1.353 0 2.574.532 3.574 1.164V1.063C9.398.508 7.915.215 6.42.215 2.854.215.41 1.91.41 5.222c0 5.161 6.88 4.357 6.88 6.645 0 1.092-.885 1.583-2.167 1.583-1.603 0-3-.642-4.055-1.32v5.121c1.25.653 2.871.982 4.324.982 3.797 0 6.242-1.796 6.242-5.052 0-5.226-6.884-4.354-6.884-6.877zM18.81 12.06c.451-.013.784-.044.784-.044v3.541s-.493.125-1.127.125c-1.332 0-1.897-.681-1.897-1.879V5.203h-2.115V1.272h2.115V.04l4.316-1.29v2.522h2.247v3.931h-2.247v5.334c0 .445.197.625.592.625.432 0 .911-.088.911-.088zm4.417-6.857h4.093v1.89s1.085-2.292 3.763-2.292c.559 0 1.083.09 1.083.09v4.208s-.701-.157-1.425-.157c-2.152 0-3.418 1.25-3.418 3.548v5.529h-4.096V5.203zm10.155-2.73a1.472 1.472 0 1 1-.002-2.943 1.472 1.472 0 0 1 .002 2.943zm-2.047 2.73h4.096v12.812h-4.096V5.203zM40 9.2c0-2.853-2.11-4.341-4.784-4.341-1.31 0-2.522.42-3.418 1.09V.052L27.7.99v17.025h4.096v-1.774s1.248 2.049 3.826 2.049C38.16 18.29 40 16.481 40 13.593V9.2zm-4.096 4.317c0 1.053-.611 1.7-1.644 1.7-1.223 0-2.078-1.022-2.078-2.316v-2.045c0-1.293.855-2.315 2.078-2.315 1.033 0 1.644.646 1.644 1.7v3.276z" fill="#635BFF"/>
         </svg>
       )
     },
     {
       name: "TAILWIND CSS",
       logo: (
-        <svg viewBox="0 0 24 24" className="w-4 h-4 fill-[#38BDF8]" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 14.881 12 18 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 15.121 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C7.666 17.818 8.881 19 12 19c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.182 9.121 12 6.001 12z"/>
+        <svg viewBox="0 0 24 24" className="w-4.5 h-4.5" xmlns="http://www.w3.org/2000/svg">
+          <path fillRule="evenodd" clipRule="evenodd" d="M12 3.2c-2.4 0-4.8 1.2-4.8 3.6 0 2.4 2.4 2.4 2.4 4.8 0 2.4-2.4 2.4-2.4 4.8 0 2.4 2.4 3.6 4.8 3.6 2.4 0 4.8-1.2 4.8-3.6 0-2.4-2.4-2.4-2.4-4.8 0-2.4 2.4-2.4 2.4-4.8 0-2.4-2.4-3.6-4.8-3.6zm-6 7.2c-2.4 0-4.8 1.2-4.8 3.6 0 2.4 2.4 2.4 2.4 4.8 0 2.4-2.4 2.4-2.4 4.8 0 2.4 2.4 3.6 4.8 3.6 2.4 0 4.8-1.2 4.8-3.6 0-2.4-2.4-2.4-2.4-4.8 0-2.4 2.4-2.4 2.4-4.8 0-2.4-2.4-3.6-4.8-3.6z" fill="#38BDF8"/>
         </svg>
       )
     }
@@ -345,68 +351,211 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Solution 1 */}
-              <div className="border border-[#2E3A2F] bg-[#050505] p-6 flex flex-col justify-between hover:border-[#FF0B0B]/50 transition-all duration-300 relative overflow-hidden group">
-                <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <Database className="h-5 w-5 text-[#FF0B0B]" />
-                    <h3 className="font-technical text-sm font-bold uppercase tracking-wider text-white">Sistemas Internos & ERPs</h3>
+            <div className="grid grid-cols-12 gap-6">
+              {/* Solution 1 - ERPs & Internal Systems */}
+              <div className="col-span-12 md:col-span-7 border border-[#2E3A2F] bg-[#050505] p-8 flex flex-col justify-between hover:border-[#FF0B0B]/50 hover:shadow-[0_0_30px_rgba(255,11,11,0.05)] transition-all duration-500 relative overflow-hidden group min-h-[380px]">
+                {/* Subtle Grid Background */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(46,58,47,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(46,58,47,0.05)_1px,transparent_1px)] bg-[size:16px_16px] opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
+                <div className="absolute -right-10 -bottom-10 h-48 w-48 bg-[#FF0B0B]/[0.02] rounded-full blur-3xl pointer-events-none group-hover:bg-[#FF0B0B]/[0.04] transition-all duration-500" />
+                
+                <div className="relative z-10 space-y-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="h-9 w-9 rounded-sm border border-[#2E3A2F] bg-black flex items-center justify-center group-hover:border-[#FF0B0B]/30 group-hover:bg-[#FF0B0B]/[0.03] transition-colors duration-300">
+                      <Database className="h-4.5 w-4.5 text-[#FF0B0B]" />
+                    </div>
+                    <h3 className="font-display text-lg font-bold text-white tracking-wide">Sistemas Internos & ERPs</h3>
                   </div>
-                  <p className="text-xs text-[#A1A1AA] leading-relaxed">
-                    Precisa centralizar estoque, ordens de serviço, clientes ou contratos? Desenvolvemos softwares rápidos e estáveis que se moldam perfeitamente à rotina comercial da sua empresa, sem cobrar mensalidades abusivas por usuário.
+                  <p className="text-xs text-[#A1A1AA] leading-relaxed max-w-md">
+                    Centralize estoque, ordens de serviço, clientes ou contratos em um só lugar. Desenvolvemos softwares rápidos e ultra-estáveis que se moldam perfeitamente à sua rotina comercial, sem cobrar mensalidades abusivas por usuário.
                   </p>
                 </div>
-                <div className="mt-6 pt-4 border-t border-[#2E3A2F]/40 flex items-center justify-between font-technical text-[9px] text-text-muted">
-                  <span>IDEAL PARA: CENTRALIZAR OPERAÇÃO</span>
-                  <span className="text-primary font-bold">SOB MEDIDA</span>
+
+                {/* SVG Visualizer - Nodes linking */}
+                <div className="relative z-10 my-6 h-28 border border-[#2E3A2F]/40 bg-black/40 rounded-sm overflow-hidden flex items-center justify-center">
+                  <svg className="w-full h-full max-w-sm px-4" viewBox="0 0 300 80">
+                    <g className="opacity-40 group-hover:opacity-80 transition-opacity duration-500">
+                      {/* Connection lines */}
+                      <line x1="40" y1="40" x2="150" y2="40" stroke="#2E3A2F" strokeWidth="1" strokeDasharray="3 3" />
+                      <line x1="150" y1="40" x2="260" y2="40" stroke="#2E3A2F" strokeWidth="1" strokeDasharray="3 3" />
+                      <line x1="150" y1="40" x2="150" y2="15" stroke="#2E3A2F" strokeWidth="1" />
+                      
+                      {/* Interactive Pulses */}
+                      <circle cx="100" cy="40" r="2" fill="#FF0B0B">
+                        <animate attributeName="cx" values="40;150" dur="2s" repeatCount="indefinite" />
+                      </circle>
+                      <circle cx="205" cy="40" r="2" fill="#FF0B0B">
+                        <animate attributeName="cx" values="150;260" dur="2.5s" repeatCount="indefinite" />
+                      </circle>
+
+                      {/* Main Node */}
+                      <circle cx="150" cy="40" r="8" fill="black" stroke="#FF0B0B" strokeWidth="2" />
+                      <circle cx="150" cy="40" r="4" fill="#FF0B0B" />
+                      <text x="150" y="60" textAnchor="middle" className="font-technical text-[8px] fill-[#A1A1AA]">BANCO DE DADOS</text>
+
+                      {/* Sub Node Left */}
+                      <rect x="15" y="25" width="50" height="30" rx="2" fill="black" stroke="#2E3A2F" strokeWidth="1" />
+                      <text x="40" y="42" textAnchor="middle" className="font-technical text-[8px] fill-[#FF0B0B]">ESTOQUE</text>
+
+                      {/* Sub Node Right */}
+                      <rect x="235" y="25" width="50" height="30" rx="2" fill="black" stroke="#2E3A2F" strokeWidth="1" />
+                      <text x="260" y="42" textAnchor="middle" className="font-technical text-[8px] fill-[#FF0B0B]">PEDIDOS</text>
+                    </g>
+                  </svg>
+                </div>
+
+                <div className="relative z-10 pt-4 border-t border-[#2E3A2F]/40 flex items-center justify-between font-technical text-[9px] text-[#71717A]">
+                  <span>ESTRUTURA: NATIVA E VELOZ</span>
+                  <span className="text-[#FF0B0B] font-bold uppercase tracking-wider">SOB MEDIDA</span>
                 </div>
               </div>
 
-              {/* Solution 2 */}
-              <div className="border border-[#2E3A2F] bg-[#050505] p-6 flex flex-col justify-between hover:border-[#FF0B0B]/50 transition-all duration-300 relative overflow-hidden group">
-                <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <Layout className="h-5 w-5 text-[#FF0B0B]" />
-                    <h3 className="font-technical text-sm font-bold uppercase tracking-wider text-white">Dashboards & Painéis Financeiros</h3>
+              {/* Solution 2 - Dashboards */}
+              <div className="col-span-12 md:col-span-5 border border-[#2E3A2F] bg-[#050505] p-8 flex flex-col justify-between hover:border-[#FF0B0B]/50 hover:shadow-[0_0_30px_rgba(255,11,11,0.05)] transition-all duration-500 relative overflow-hidden group min-h-[380px]">
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(46,58,47,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(46,58,47,0.05)_1px,transparent_1px)] bg-[size:16px_16px] opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
+                <div className="absolute -right-10 -bottom-10 h-48 w-48 bg-[#FF0B0B]/[0.02] rounded-full blur-3xl pointer-events-none group-hover:bg-[#FF0B0B]/[0.04] transition-all duration-500" />
+
+                <div className="relative z-10 space-y-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="h-9 w-9 rounded-sm border border-[#2E3A2F] bg-black flex items-center justify-center group-hover:border-[#FF0B0B]/30 group-hover:bg-[#FF0B0B]/[0.03] transition-colors duration-300">
+                      <Layout className="h-4.5 w-4.5 text-[#FF0B0B]" />
+                    </div>
+                    <h3 className="font-display text-lg font-bold text-white tracking-wide">Dashboards & Painéis</h3>
                   </div>
                   <p className="text-xs text-[#A1A1AA] leading-relaxed">
-                    Aposente de vez as planilhas confusas e desatualizadas. Integre suas vendas, faturamento, despesas operacionais e dados bancários em um único painel visual para tomar decisões com dados 100% confiáveis.
+                    Aposente de vez as planilhas confusas e desatualizadas. Integre suas vendas, faturamento e despesas em um painel visual unificado em tempo real.
                   </p>
                 </div>
-                <div className="mt-6 pt-4 border-t border-[#2E3A2F]/40 flex items-center justify-between font-technical text-[9px] text-text-muted">
-                  <span>IDEAL PARA: VISUALIZAR DADOS</span>
-                  <span className="text-primary font-bold">TEMPO REAL</span>
+
+                {/* SVG Visualizer - Glowing Neon Chart */}
+                <div className="relative z-10 my-6 h-28 border border-[#2E3A2F]/40 bg-black/40 rounded-sm overflow-hidden flex items-center justify-center">
+                  <svg className="w-full h-full p-4" viewBox="0 0 200 80" preserveAspectRatio="none">
+                    <g className="opacity-50 group-hover:opacity-90 transition-opacity duration-500">
+                      {/* Grid Lines */}
+                      <line x1="0" y1="20" x2="200" y2="20" stroke="#1A241B" strokeWidth="0.5" />
+                      <line x1="0" y1="40" x2="200" y2="40" stroke="#1A241B" strokeWidth="0.5" />
+                      <line x1="0" y1="60" x2="200" y2="60" stroke="#1A241B" strokeWidth="0.5" />
+                      
+                      {/* Glowing Path */}
+                      <path d="M0,60 Q30,55 60,40 T120,45 T180,15 L200,10" fill="none" stroke="#FF0B0B" strokeWidth="2.5" className="drop-shadow-[0_0_4px_rgba(255,11,11,0.5)]" />
+                      <path d="M0,60 Q30,55 60,40 T120,45 T180,15 L200,10 L200,80 L0,80 Z" fill="url(#chart-glow)" opacity="0.1" />
+                      
+                      {/* Interactive Dot */}
+                      <circle cx="180" cy="15" r="3.5" fill="#FF0B0B">
+                        <animate attributeName="r" values="3.5;5;3.5" dur="1.5s" repeatCount="indefinite" />
+                      </circle>
+                      <text x="175" y="32" className="font-technical text-[7px] fill-[#FF0B0B] font-bold">+94.8% EFICIÊNCIA</text>
+
+                      <defs>
+                        <linearGradient id="chart-glow" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#FF0B0B" />
+                          <stop offset="100%" stopColor="transparent" />
+                        </linearGradient>
+                      </defs>
+                    </g>
+                  </svg>
+                </div>
+
+                <div className="relative z-10 pt-4 border-t border-[#2E3A2F]/40 flex items-center justify-between font-technical text-[9px] text-[#71717A]">
+                  <span>FUTURO: DECISÕES COM DADOS</span>
+                  <span className="text-[#FF0B0B] font-bold uppercase tracking-wider">TEMPO REAL</span>
                 </div>
               </div>
 
-              {/* Solution 3 */}
-              <div className="border border-[#2E3A2F] bg-[#050505] p-6 flex flex-col justify-between hover:border-[#FF0B0B]/50 transition-all duration-300 relative overflow-hidden group">
-                <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <Workflow className="h-5 w-5 text-[#FF0B0B]" />
-                    <h3 className="font-technical text-sm font-bold uppercase tracking-wider text-white">Automações de Processos & WhatsApp</h3>
+              {/* Solution 3 - Automations */}
+              <div className="col-span-12 md:col-span-5 border border-[#2E3A2F] bg-[#050505] p-8 flex flex-col justify-between hover:border-[#FF0B0B]/50 hover:shadow-[0_0_30px_rgba(255,11,11,0.05)] transition-all duration-500 relative overflow-hidden group min-h-[380px]">
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(46,58,47,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(46,58,47,0.05)_1px,transparent_1px)] bg-[size:16px_16px] opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
+                <div className="absolute -right-10 -bottom-10 h-48 w-48 bg-[#FF0B0B]/[0.02] rounded-full blur-3xl pointer-events-none group-hover:bg-[#FF0B0B]/[0.04] transition-all duration-500" />
+
+                <div className="relative z-10 space-y-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="h-9 w-9 rounded-sm border border-[#2E3A2F] bg-black flex items-center justify-center group-hover:border-[#FF0B0B]/30 group-hover:bg-[#FF0B0B]/[0.03] transition-colors duration-300">
+                      <Workflow className="h-4.5 w-4.5 text-[#FF0B0B]" />
+                    </div>
+                    <h3 className="font-display text-lg font-bold text-white tracking-wide">Automações & WhatsApp</h3>
                   </div>
                   <p className="text-xs text-[#A1A1AA] leading-relaxed">
-                    Conectamos suas ferramentas de vendas, WhatsApp, CRMs, planilhas e meios de pagamento para que as tarefas repetitivas, como envio de cobranças e atualizações de status, rodem sozinhas 24h por dia.
+                    Conectamos suas vendas, WhatsApp, CRMs e meios de pagamento para que as tarefas repetitivas rodem sozinhas 24h por dia, sem erros de digitação.
                   </p>
                 </div>
-                <div className="mt-6 pt-4 border-t border-[#2E3A2F]/40 flex items-center justify-between font-technical text-[9px] text-text-muted">
-                  <span>IDEAL PARA: ELIMINAR TRABALHO MANUAL</span>
-                  <span className="text-primary font-bold">100% AUTOMÁTICO</span>
+
+                {/* SVG Visualizer - Active workflow nodes */}
+                <div className="relative z-10 my-6 h-28 border border-[#2E3A2F]/40 bg-black/40 rounded-sm overflow-hidden flex items-center justify-center">
+                  <svg className="w-full h-full p-4" viewBox="0 0 200 80">
+                    <g className="opacity-40 group-hover:opacity-80 transition-opacity duration-500">
+                      {/* Active Ring */}
+                      <circle cx="40" cy="40" r="14" fill="black" stroke="#2E3A2F" strokeWidth="1" />
+                      <circle cx="40" cy="40" r="6" fill="#FF0B0B" opacity="0.3">
+                        <animate attributeName="r" values="4;10;4" dur="2s" repeatCount="indefinite" />
+                      </circle>
+                      <path d="M37 40 L39 42 L43 38" fill="none" stroke="#FF0B0B" strokeWidth="1.5" />
+
+                      {/* Connection arrow */}
+                      <path d="M60 40 L134 40" fill="none" stroke="#2E3A2F" strokeWidth="1" strokeDasharray="3 3" />
+                      <polygon points="134,37 140,40 134,43" fill="#2E3A2F" />
+
+                      <circle cx="95" cy="40" r="3" fill="#FF0B0B">
+                        <animate attributeName="cx" values="54;134" dur="2s" repeatCount="indefinite" />
+                      </circle>
+
+                      {/* End Node */}
+                      <rect x="140" y="25" width="45" height="30" rx="2" fill="black" stroke="#FF0B0B" strokeWidth="1.5" />
+                      <text x="162.5" y="42" textAnchor="middle" className="font-technical text-[7px] fill-white">DISPARO</text>
+                    </g>
+                  </svg>
+                </div>
+
+                <div className="relative z-10 pt-4 border-t border-[#2E3A2F]/40 flex items-center justify-between font-technical text-[9px] text-[#71717A]">
+                  <span>FALHAS MINIMIZADAS: 0.00%</span>
+                  <span className="text-[#FF0B0B] font-bold uppercase tracking-wider">100% AUTOMÁTICO</span>
                 </div>
               </div>
 
-              {/* Solution 4 */}
-              <div className="border border-[#2E3A2F] bg-[#050505] p-6 flex flex-col justify-between hover:border-[#FF0B0B]/50 transition-all duration-300 relative overflow-hidden group">
-                <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <CheckCircle2 className="h-5 w-5 text-[#FF0B0B]" />
-                    <h3 className="font-technical text-sm font-bold uppercase tracking-wider text-white">Portais de Clientes & Plataformas Web</h3>
+              {/* Solution 4 - Customer Portals */}
+              <div className="col-span-12 md:col-span-7 border border-[#2E3A2F] bg-[#050505] p-8 flex flex-col justify-between hover:border-[#FF0B0B]/50 hover:shadow-[0_0_30px_rgba(255,11,11,0.05)] transition-all duration-500 relative overflow-hidden group min-h-[380px]">
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(46,58,47,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(46,58,47,0.05)_1px,transparent_1px)] bg-[size:16px_16px] opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
+                <div className="absolute -right-10 -bottom-10 h-48 w-48 bg-[#FF0B0B]/[0.02] rounded-full blur-3xl pointer-events-none group-hover:bg-[#FF0B0B]/[0.04] transition-all duration-500" />
+
+                <div className="relative z-10 space-y-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="h-9 w-9 rounded-sm border border-[#2E3A2F] bg-black flex items-center justify-center group-hover:border-[#FF0B0B]/30 group-hover:bg-[#FF0B0B]/[0.03] transition-colors duration-300">
+                      <CheckCircle2 className="h-4.5 w-4.5 text-[#FF0B0B]" />
+                    </div>
+                    <h3 className="font-display text-lg font-bold text-white tracking-wide">Portais de Autoatendimento</h3>
                   </div>
-                  <p className="text-xs text-[#A1A1AA] leading-relaxed">
-                    Construímos portais de autoatendimento para seus clientes (segunda via, download de relatórios, acompanhamento de projetos), áreas de membros exclusivas e plataformas web completas integradas a banco de dados.
+                  <p className="text-xs text-[#A1A1AA] leading-relaxed max-w-md">
+                    Construímos portais exclusivos para seus clientes e parceiros (consulta de faturas, downloads de relatórios e controle de chamados) integrados ao seu banco de dados de forma ágil.
                   </p>
+                </div>
+
+                {/* SVG Visualizer - Active Portal UI Mockup */}
+                <div className="relative z-10 my-6 h-28 border border-[#2E3A2F]/40 bg-black/40 rounded-sm overflow-hidden flex items-center justify-center">
+                  <svg className="w-full h-full px-8" viewBox="0 0 260 80">
+                    <g className="opacity-40 group-hover:opacity-80 transition-opacity duration-500">
+                      {/* Top bar mockup */}
+                      <rect x="10" y="10" width="240" height="60" rx="3" fill="black" stroke="#2E3A2F" strokeWidth="1" />
+                      <line x1="10" y1="24" x2="250" y2="24" stroke="#2E3A2F" strokeWidth="1" />
+                      
+                      {/* Window Dots */}
+                      <circle cx="20" cy="17" r="2" fill="#E11D48" />
+                      <circle cx="27" cy="17" r="2" fill="#D97706" />
+                      <circle cx="34" cy="17" r="2" fill="#059669" />
+
+                      {/* Content Columns */}
+                      <rect x="20" y="32" width="60" height="30" rx="2" fill="#0A0A0A" stroke="#2E3A2F" strokeWidth="0.5" />
+                      <circle cx="32" cy="42" r="5" fill="#2E3A2F" />
+                      <line x1="42" y1="40" x2="70" y2="40" stroke="#A1A1AA" strokeWidth="1" />
+                      <line x1="42" y1="45" x2="60" y2="45" stroke="#2E3A2F" strokeWidth="1" />
+
+                      <rect x="90" y="32" width="150" height="30" rx="2" fill="#0A0A0A" stroke="#FF0B0B" strokeWidth="0.5" strokeOpacity="0.5" />
+                      <line x1="100" y1="42" x2="180" y2="42" stroke="#FF0B0B" strokeWidth="1" strokeOpacity="0.7" />
+                      <line x1="100" y1="48" x2="230" y2="48" stroke="#A1A1AA" strokeWidth="1" />
+                    </g>
+                  </svg>
+                </div>
+
+                <div className="relative z-10 pt-4 border-t border-[#2E3A2F]/40 flex items-center justify-between font-technical text-[9px] text-[#71717A]">
+                  <span>PORTAIS INTEGRADOS</span>
+                  <span className="text-[#FF0B0B] font-bold uppercase tracking-wider">PLATAFORMAS WEB</span>
                 </div>
               </div>
             </div>

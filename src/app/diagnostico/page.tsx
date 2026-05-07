@@ -59,9 +59,9 @@ export default function DiagnosticoPage() {
   };
 
   const steps = [
-    { title: "Mapeamento e Telemetria", desc: "Avaliamos os fluxos manuais de campo ou gargalos de software que estão travando sua operação.", icon: Clock },
-    { title: "Sessão Estratégica (30 min)", desc: "Conversa direta e pragmática para traduzir suas dores operacionais em escopo de engenharia.", icon: PhoneCall },
-    { title: "Blueprint de Engenharia", desc: "Você recebe a planta exata do sistema ideal para eliminar o desperdício, sem custo.", icon: Laptop },
+    { title: "Mapeamento de Gargalos", desc: "Analisamos as tarefas lentas e manuais que sua equipe faz no dia a dia para descobrir onde sua empresa está perdendo tempo e dinheiro.", icon: Clock },
+    { title: "Conversa Direta (30 min)", desc: "Uma reunião rápida e pragmática (por chamada ou WhatsApp) para entendermos as dores e a rotina da sua operação.", icon: PhoneCall },
+    { title: "Plano de Solução Gratuito", desc: "Você recebe o desenho prático do sistema ou automação ideal para organizar seus processos e economizar horas de trabalho, sem custo.", icon: Laptop },
   ];
 
   return (
@@ -77,22 +77,22 @@ export default function DiagnosticoPage() {
           <div className="inline-flex items-center gap-2 border border-[#2E3A2F] bg-[#0a0a0a] px-3 py-1.5 rounded-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-[#FF0B0B] animate-pulse" />
             <span className="font-technical text-[10px] text-[#A1A1AA] tracking-widest uppercase">
-              Sessão de Extração de Sinal — 100% Gratuita
+              Diagnóstico Operacional — 100% Gratuito e Prático
             </span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-display font-medium leading-tight">
-            Pare de conviver com <span className="text-[#FF0B0B] font-semibold">gargalos operacionais.</span>
+            Pare de perder tempo com <span className="text-[#FF0B0B] font-semibold">processos manuais e lentos.</span>
           </h1>
 
           <p className="text-sm sm:text-base text-[#A1A1AA] leading-relaxed max-w-xl">
-            Sistemas lentos, planilhas bagunçadas e processos manuais travam seu crescimento. Vamos mapear suas dores e desenhar a arquitetura do sistema ideal para o seu negócio de forma gratuita.
+            A CodimDev cria softwares, sistemas e automações sob medida para organizar o dia a dia da sua empresa. Eliminamos planilhas confusas, trabalhos repetitivos e erros humanos que travam o seu crescimento. Vamos mapear os problemas da sua operação de forma rápida e desenhar a solução perfeita sem custos.
           </p>
 
           {/* Steps Detailed */}
           <div className="space-y-6 pt-6 border-t border-[#2E3A2F]">
             <h3 className="font-technical text-xs font-bold text-white tracking-widest uppercase">
-              COMO FUNCIONA O PROCESSO DE DIAGNÓSTICO:
+              COMO FUNCIONA O NOSSO DIAGNÓSTICO:
             </h3>
             <div className="space-y-4">
               {steps.map((st, i) => {
@@ -133,7 +133,7 @@ export default function DiagnosticoPage() {
                     Solicitar Diagnóstico
                   </h2>
                   <p className="text-[11px] text-[#A1A1AA]">
-                    Preencha o formulário para garantir sua vaga e agendar uma sessão gratuita de mapeamento operacional.
+                    Preencha o formulário para garantir sua vaga e agendar uma conversa gratuita e prática sobre a rotina da sua operação.
                   </p>
                 </div>
 
@@ -202,12 +202,12 @@ export default function DiagnosticoPage() {
 
                   <div>
                     <label className="block font-technical text-[10px] text-[#A1A1AA] uppercase tracking-wider mb-1.5">
-                      Fale sobre seus principais gargalos operacionais (Opcional)
+                      Fale um pouco sobre o que mais atrapalha o dia a dia da sua empresa (Opcional)
                     </label>
                     <textarea
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
-                      placeholder="Ex: Falta de automação de Ordens de Serviço no campo, relatórios lentos..."
+                      placeholder="Ex: Passamos muito tempo preenchendo planilhas à mão, relatórios demoram para ficar prontos..."
                       rows={3}
                       className="w-full rounded-sm border border-[#2E3A2F] bg-black p-3 font-technical text-xs text-white placeholder-[#52525B] focus:border-[#FF0B0B] focus:outline-none transition-colors resize-none"
                     />
@@ -226,7 +226,7 @@ export default function DiagnosticoPage() {
                     </>
                   ) : (
                     <>
-                      Solicitar Diagnóstico Gratuito
+                      Agendar Conversa Gratuita
                       <ArrowRight className="h-4 w-4" />
                     </>
                   )}
@@ -242,7 +242,7 @@ export default function DiagnosticoPage() {
                     Solicitação Recebida!
                   </h2>
                   <p className="text-xs text-[#A1A1AA] leading-relaxed max-w-xs mx-auto">
-                    A extração de sinal foi iniciada. Nós entraremos em contato nas próximas **24 horas** no WhatsApp ou email cadastrado para agendar sua sessão de diagnóstico.
+                    Nossa equipe recebeu sua solicitação. Entraremos em contato em até **24 horas** pelo WhatsApp ou email informado para combinarmos o melhor horário para nossa conversa.
                   </p>
                 </div>
                 <div className="pt-4">
