@@ -1,26 +1,47 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;       /* Preto Absoluto para contraste supremo */
+  --surface: #0a0a0a;          /* Preto levemente elevado para painéis/cards */
+  --surface-hover: #121212;    /* Feedback sutil de hover */
+  --primary: #FF0B0B;          /* Vermelho Alerta/Ação (Foco e precisão) */
+  --primary-hover: #D60606;    /* Vermelho para interações de clique */
+  --accent: #5C3822;           /* Marrom Terroso/Sóbrio para detalhes técnicos */
+  --border: #2E3A2F;           /* Verde Técnico para bordas e grids de dados */
+  --border-focus: #445645;     /* Borda ativa nos inputs */
+  --text-primary: #FFFFFF;     /* Texto principal em branco de alto brilho */
+  --text-secondary: #A1A1AA;   /* Cinza Zinco para informações secundárias */
+  --text-muted: #52525B;       /* Cinza escuro para carimbos de tempo e detalhes */
+  
+  /* Status Industriais */
+  --status-success: #10B981;   /* Verde para SUCESSO/DEPLOYED */
+  --status-warning: #F59E0B;   /* Âmbar para ALERTA/PENDING */
+  --status-danger: #EF4444;    /* Vermelho para ERROS/FALHAS */
 }
 
-@theme inline {
+@theme {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+  --color-border-focus: var(--border-focus);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  
+  --color-status-success: var(--status-success);
+  --color-status-warning: var(--status-warning);
+  --color-status-danger: var(--status-danger);
+  
+  --font-display: var(--font-inter), sans-serif;
+  --font-technical: var(--font-jetbrains-mono), monospace;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-inter), sans-serif;
 }
