@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
-import { Cpu, Database, Wifi, Clock } from "lucide-react";
+import { Cpu, Database, Wifi, Clock, Menu, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface DashboardShellProps {
   children: React.ReactNode;
@@ -11,6 +11,22 @@ interface DashboardShellProps {
 export default function DashboardShell({ children }: DashboardShellProps) {
   const [time, setTime] = useState<string>("");
   const [ping, setPing] = useState<number>(8);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
+  const [isMobileOpen, setIsMobileOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    // Responsive auto-collapse (Page 10 of PDF: < 1024px auto-collapse)
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setIsSidebarCollapsed(true);
+      } else {
+        setIsSidebarCollapsed(false);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     // Live update clock
@@ -39,25 +55,47 @@ export default function DashboardShell({ children }: DashboardShellProps) {
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-background text-text-primary">
       {/* Lateral Menu */}
-      <Sidebar />
+      <Sidebar 
+        collapsed={isSidebarCollapsed} 
+        mobileOpen={isMobileOpen} 
+        onMobileClose={() => setIsMobileOpen(false)} 
+      />
 
       {/* Main Panel Content Container */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Technical Topbar */}
         <header className="h-16 border-b border-border bg-surface flex items-center justify-between px-6 flex-shrink-0">
-          <div className="flex items-center gap-4">
-            <h1 className="font-technical text-sm font-bold tracking-wider text-text-secondary">
+          <div className="flex items-center gap-2">
+            {/* Mobile Menu Toggle */}
+            <button 
+              onClick={() => setIsMobileOpen(true)}
+              className="p-1.5 border border-border bg-surface text-text-secondary hover:text-text-primary hover:bg-surface-hover md:hidden flex items-center justify-center mr-2"
+              title="Abrir Menu"
+            >
+              <Menu size={16} />
+            </button>
+
+            {/* Manual Toggle Desktop */}
+            <button 
+              onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+              className="hidden md:flex p-1.5 border border-border bg-surface text-text-secondary hover:text-text-primary hover:bg-surface-hover items-center justify-center mr-2"
+              title={isSidebarCollapsed ? "Expandir Painel" : "Recolher Painel"}
+            >
+              {isSidebarCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+            </button>
+
+            <h1 className="font-technical text-sm font-bold tracking-wider text-text-secondary whitespace-nowrap">
               GRADE OPERACIONAL
             </h1>
             <span className="hidden md:inline-block h-4 w-px bg-border"></span>
-            <div className="hidden md:flex items-center gap-1.5 font-technical text-[10px] bg-black px-2.5 py-1 border border-border">
+            <div className="hidden lg:flex items-center gap-1.5 font-technical text-[10px] bg-black px-2.5 py-1 border border-border">
               <span className="w-1.5 h-1.5 bg-status-success rounded-full animate-pulse"></span>
               <span className="text-status-success font-bold tracking-widest">SISTEMA ATIVO & CONECTADO</span>
             </div>
           </div>
 
           {/* Grid Indicators */}
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4 sm:gap-6">
             {/* Database Latency */}
             <div className="hidden sm:flex items-center gap-2">
               <Database size={14} className="text-text-secondary" />
@@ -98,7 +136,7 @@ export default function DashboardShell({ children }: DashboardShellProps) {
         </header>
 
         {/* Dynamic Section Contents */}
-        <main className="flex-1 overflow-y-auto bg-background p-6">
+        <main className="flex-1 overflow-y-auto bg-background p-4 sm:p-6">
           <div className="max-w-7xl mx-auto h-full flex flex-col">
             {children}
           </div>
@@ -107,3 +145,4 @@ export default function DashboardShell({ children }: DashboardShellProps) {
     </div>
   );
 }
+

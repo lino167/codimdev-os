@@ -69,7 +69,7 @@ export default function DashboardPage() {
       // 2. Projetos Ativos
       const { count: activeProjCount, data: projData, error: projErr } = await supabase
         .from("projects")
-        .select("*, clients(company)")
+        .select("*, clients(company_name)")
         .neq("status", "deployed");
 
       // 3. Faturamento Acumulado (Receitas)
@@ -138,7 +138,7 @@ export default function DashboardPage() {
   const displayProjects = activeProjectsList.length > 0 
     ? activeProjectsList.map(p => ({
         name: p.name,
-        client_company: p.clients?.company || "Cliente Interno",
+        client_company: p.clients?.company_name || "Cliente Interno",
         progress: p.progress,
         status: p.status
       }))

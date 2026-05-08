@@ -19,7 +19,7 @@ import {
 interface Client {
   id: string;
   name: string;
-  company: string;
+  company_name: string;
   email: string;
 }
 
@@ -28,11 +28,12 @@ interface Project {
   created_at: string;
   client_id: string;
   name: string;
-  description: string;
+  description?: string;
   status: string;
   progress: number;
-  repo_url: string;
-  preview_url: string;
+  repository_url: string;
+  production_url: string;
+  price?: number;
   clients?: Client; // Relation loaded via Supabase
 }
 
@@ -67,7 +68,7 @@ export default function ProjectsPage() {
       const { data: clientsData, error: clientsErr } = await supabase
         .from("clients")
         .select("*")
-        .order("company", { ascending: true });
+        .order("company_name", { ascending: true });
 
       if (clientsErr) throw clientsErr;
       setClients(clientsData || []);
@@ -80,7 +81,7 @@ export default function ProjectsPage() {
           clients (
             id,
             name,
-            company,
+            company_name,
             email
           )
         `)
@@ -109,7 +110,7 @@ export default function ProjectsPage() {
       const { error } = await supabase.from("clients").insert([
         {
           name: clientName,
-          company: clientCompany,
+          company_name: clientCompany,
           email: clientEmail,
           phone: clientPhone,
           status: "active",
@@ -141,12 +142,12 @@ export default function ProjectsPage() {
       const { error } = await supabase.from("projects").insert([
         {
           name: projName,
-          description: projDescription,
           client_id: projClientId,
           status: projStatus,
           progress: projProgress,
-          repo_url: projRepoUrl,
-          preview_url: projPreviewUrl,
+          repository_url: projRepoUrl,
+          production_url: projPreviewUrl,
+          price: 0,
         },
       ]);
 
@@ -230,7 +231,7 @@ export default function ProjectsPage() {
   const filteredProjects = projects.filter(
     (p) =>
       p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (p.clients?.company || "").toLowerCase().includes(searchQuery.toLowerCase())
+      (p.clients?.company_name || "").toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -373,7 +374,7 @@ export default function ProjectsPage() {
                     <option value="">-- SELECIONE O CLIENTE --</option>
                     {clients.map((c) => (
                       <option key={c.id} value={c.id}>
-                        {c.company} ({c.name})
+                        {c.company_name} ({c.name})
                       </option>
                     ))}
                   </select>
@@ -494,7 +495,7 @@ export default function ProjectsPage() {
                         <div className="flex flex-col">
                           <span className="font-technical text-sm font-bold text-text-primary">{project.name}</span>
                           <span className="font-technical text-[10px] text-text-muted mt-0.5">
-                            CLIENTE: {project.clients?.company || "N/A"} ({project.clients?.name || "N/A"})
+                            CLIENTE: {project.clients?.company_name || "N/A"} ({project.clients?.name || "N/A"})
                           </span>
                         </div>
                         <div className="flex items-center gap-2">
@@ -542,9 +543,9 @@ export default function ProjectsPage() {
 
                       {/* Code Repository and Live Preview Actions */}
                       <div className="flex items-center gap-4 mt-1 border-t border-border/20 pt-2.5 font-technical text-[10px] font-bold">
-                        {project.repo_url && (
+                        {project.repository_url && (
                           <a
-                            href={project.repo_url}
+                            href={project.repository_url}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-text-secondary hover:text-text-primary flex items-center gap-1"
@@ -552,9 +553,9 @@ export default function ProjectsPage() {
                             <ExternalLink size={11} /> REPOSITÓRIO CÓDIGO
                           </a>
                         )}
-                        {project.preview_url && (
+                        {project.production_url && (
                           <a
-                            href={project.preview_url}
+                            href={project.production_url}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-text-secondary hover:text-text-primary flex items-center gap-1"
