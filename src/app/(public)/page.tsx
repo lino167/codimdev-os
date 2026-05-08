@@ -11,6 +11,8 @@ import {
   Cpu
 } from 'lucide-react';
 import UnicornBackground from '@/components/public/UnicornBackground';
+import PublicHeader from '@/components/public/Header';
+
 
 export default function Home() {
   return (
@@ -33,31 +35,7 @@ export default function Home() {
       {/* ==========================================
           2. NAVEGAÇÃO GLASSMORPHIC (PILL)
           ========================================== */}
-      <header className="flex z-50 w-full pt-8 pr-6 pl-6 relative justify-center sticky top-0">
-        <div className="flex w-full max-w-[1400px] items-center justify-between">
-          
-          {/* Logo */}
-          <Link href="/" className="w-12 h-12 bg-white/5 backdrop-blur-md rounded-full flex items-center justify-center border border-white/10 hover:bg-white/10 transition duration-300">
-            <Terminal className="w-5 h-5 text-white" />
-          </Link>
-
-          {/* Center Nav Pill */}
-          <nav className="hidden lg:flex items-center bg-white/5 backdrop-blur-md border border-white/10 rounded-full px-8 py-3.5 gap-6 text-sm font-medium text-neutral-400 shadow-xl shadow-black/50">
-            <Link href="#about" className="hover:text-white transition duration-200">Metodologia</Link>
-            <div className="w-1 h-1 bg-neutral-600 rounded-full" />
-            <Link href="#product" className="hover:text-white transition duration-200">OS Interno</Link>
-            <div className="w-1 h-1 bg-neutral-600 rounded-full" />
-            <Link href="#features" className="hover:text-white transition duration-200">Engenharia</Link>
-            <div className="w-1 h-1 bg-neutral-600 rounded-full" />
-            <Link href="#pricing" className="hover:text-white transition duration-200">High-Ticket</Link>
-          </nav>
-
-          {/* CTA Pill */}
-          <Link href="/audit" className="text-sm font-bold text-white bg-primary hover:bg-primary-hover border border-primary-hover backdrop-blur-md rounded-full px-7 py-3.5 transition duration-300">
-            INICIAR AUDITORIA
-          </Link>
-        </div>
-      </header>
+      <PublicHeader />
 
       {/* ==========================================
           3. HERO SECTION ASSIMÉTRICO

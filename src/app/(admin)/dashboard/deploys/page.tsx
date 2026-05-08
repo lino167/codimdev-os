@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import DashboardShell from "@/components/dashboard/DashboardShell";
+import DashboardShell from "@/components/admin/DashboardShell";
 import { supabase } from "@/lib/supabase";
 import { 
   GitBranch, 

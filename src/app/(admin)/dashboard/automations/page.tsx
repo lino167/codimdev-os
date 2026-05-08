@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
-import DashboardShell from "@/components/dashboard/DashboardShell";
+import DashboardShell from "@/components/admin/DashboardShell";
 import { supabase } from "@/lib/supabase";
 import { 
   Cpu, 

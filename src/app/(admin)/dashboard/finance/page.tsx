@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import DashboardShell from "@/components/dashboard/DashboardShell";
-import FinanceChart from "@/components/dashboard/FinanceChart";
+import DashboardShell from "@/components/admin/DashboardShell";
+import FinanceChart from "@/components/admin/FinanceChart";
 import { supabase } from "@/lib/supabase";
 import { 
   DollarSign, 
