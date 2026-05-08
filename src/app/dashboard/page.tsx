@@ -116,47 +116,22 @@ export default function DashboardPage() {
     loadDashboardData();
   }, []);
 
-  // Dados de Fallback realistas caso o banco esteja vazio (Garantia do fator "WOW")
-  const defaultProjects = [
-    { name: "Desktop Kraflo CMMS", client_company: "Kraflo Indústrias", progress: 85, status: "building" },
-    { name: "SaaS Audit™ Blueprint", client_company: "Nodus Corp", progress: 100, status: "deployed" },
-    { name: "Setup Landing Page Performance", client_company: "Studio Beauty", progress: 40, status: "designing" },
-  ];
+  const displayProjects = activeProjectsList.map(p => ({
+    name: p.name,
+    client_company: p.clients?.company_name || "Cliente Interno",
+    progress: p.progress,
+    status: p.status
+  }));
 
-  const defaultDeploys = [
-    { commit_message: "feat: add gatilho para execuções preventivas", commit_hash: "a3b98c1", created_at: new Date(Date.now() - 10 * 60000).toISOString(), status: "success", project_name: "Desktop Kraflo CMMS" },
-    { commit_message: "fix: solve discrepância de timezone no robô do OS", commit_hash: "9e2f41a", created_at: new Date(Date.now() - 60 * 60000).toISOString(), status: "success", project_name: "Telegram OS Bot" },
-    { commit_message: "build: initial config para benchmarks de performance", commit_hash: "ef821b3", created_at: new Date(Date.now() - 240 * 60000).toISOString(), status: "failed", project_name: "SaaS Audit™ Engine" },
-  ];
+  const displayDeploys = recentDeploys.map(d => ({
+    commit_message: d.commit_message || "Deploy acionado manualmente",
+    commit_hash: d.commit_hash || "custom_h",
+    created_at: d.created_at,
+    status: d.status,
+    project_name: d.projects?.name || "Projeto Customizado"
+  }));
 
-  const defaultAutomations = [
-    { name: "Robô Telegram: OS #416 despachada com sucesso", created_at: new Date(Date.now() - 5 * 60000).toISOString(), status: "success" },
-    { name: "Sincronização n8n: Novo lead cadastrado (Nodus)", created_at: new Date(Date.now() - 12 * 60000).toISOString(), status: "success" },
-    { name: "Stripe Webhook: Cobrança de MRR mensal verificada", created_at: new Date(Date.now() - 180 * 60000).toISOString(), status: "success" },
-  ];
-
-  const displayProjects = activeProjectsList.length > 0 
-    ? activeProjectsList.map(p => ({
-        name: p.name,
-        client_company: p.clients?.company_name || "Cliente Interno",
-        progress: p.progress,
-        status: p.status
-      }))
-    : defaultProjects;
-
-  const displayDeploys = recentDeploys.length > 0
-    ? recentDeploys.map(d => ({
-        commit_message: d.commit_message || "Deploy acionado manualmente",
-        commit_hash: d.commit_hash || "custom_h",
-        created_at: d.created_at,
-        status: d.status,
-        project_name: d.projects?.name || "Projeto Customizado"
-      }))
-    : defaultDeploys;
-
-  const displayAutomations = automationLogs.length > 0
-    ? automationLogs
-    : defaultAutomations;
+  const displayAutomations = automationLogs;
 
   const formatTimeAgo = (isoString: string) => {
     try {
@@ -211,29 +186,29 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <MetricCard
                 title="CRM TOTAL DE LEADS"
-                value={String(metrics.totalLeads > 0 ? metrics.totalLeads : 42)}
-                change={metrics.totalLeads > 0 ? "REAIS DO BANCO" : "+12.4% (DEMO)"}
+                value={String(metrics.totalLeads)}
+                change="REGISTROS ATIVOS"
                 isPositive={true}
                 icon={<Users size={16} />}
               />
               <MetricCard
                 title="PROJETOS ATIVOS"
-                value={String(metrics.activeProjects > 0 ? metrics.activeProjects : 3)}
-                change={metrics.activeProjects > 0 ? "REAIS DO BANCO" : "SISTEMA ESTÁVEL"}
+                value={String(metrics.activeProjects)}
+                change="EM CONSTRUÇÃO"
                 isPositive={true}
                 icon={<Briefcase size={16} />}
               />
               <MetricCard
                 title="FATURAMENTO"
-                value={metrics.monthlyRevenue > 0 ? `R$ ${metrics.monthlyRevenue.toLocaleString("pt-BR")}` : "R$ 14.250"}
-                change={metrics.monthlyRevenue > 0 ? "SOMA DE TRANSAÇÕES" : "+8.2% (DEMO)"}
+                value={`R$ ${metrics.monthlyRevenue.toLocaleString("pt-BR")}`}
+                change="SOMA DAS TRANSAÇÕES"
                 isPositive={true}
                 icon={<DollarSign size={16} />}
               />
               <MetricCard
                 title="DEPLOYS EXECUTADOS"
-                value={String(metrics.totalDeploys > 0 ? metrics.totalDeploys : 148)}
-                change={metrics.totalDeploys > 0 ? "HISTÓRICO ATIVO" : "99.2% SUCESSO"}
+                value={String(metrics.totalDeploys)}
+                change="REGISTROS REAIS"
                 isPositive={true}
                 icon={<GitBranch size={16} />}
               />

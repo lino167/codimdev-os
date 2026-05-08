@@ -30,7 +30,7 @@ interface Transaction {
   amount: number;
   type: string;
   category: string;
-  date: string;
+  transaction_date: string;
 }
 
 export default function FinancePage() {
@@ -39,7 +39,6 @@ export default function FinancePage() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [notification, setNotification] = useState<string | null>(null);
-  const [showStripeModal, setShowStripeModal] = useState<boolean>(false);
 
   // Form states
   const [description, setDescription] = useState("");
@@ -48,9 +47,7 @@ export default function FinancePage() {
   const [category, setCategory] = useState("project");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
-  // Stripe Simulation Form States
-  const [stripeAmount, setStripeAmount] = useState("12580.80");
-  const [stripeProject, setStripeProject] = useState("Vercel Enterprise");
+
 
   // Fetch real transactions from Supabase on mount
   const fetchTransactions = async () => {
@@ -59,7 +56,7 @@ export default function FinancePage() {
       const { data, error } = await supabase
         .from("financial_transactions")
         .select("*")
-        .order("date", { ascending: false });
+        .order("transaction_date", { ascending: false });
 
       if (error) throw error;
       setTransactions(data || []);
@@ -87,7 +84,7 @@ export default function FinancePage() {
           amount: parseFloat(amount),
           type,
           category,
-          date,
+          transaction_date: date,
         },
       ]);
 
@@ -139,32 +136,7 @@ export default function FinancePage() {
     }
   };
 
-  // Handle Simulated Stripe Payment and Webhook
-  const handleStripeCheckoutSimulation = async () => {
-    setShowStripeModal(false);
-    showToastNotification("STRIPE: AGUARDANDO RETORNO DE WEBHOOK...");
-    
-    setTimeout(async () => {
-      try {
-        const { error } = await supabase.from("financial_transactions").insert([
-          {
-            description: `STRIPE_INBOUND: ${stripeProject}`,
-            amount: parseFloat(stripeAmount),
-            type: "income",
-            category: "project",
-            date: new Date().toISOString().split("T")[0],
-          },
-        ]);
 
-        if (error) throw error;
-
-        showToastNotification(`STRIPE WEBHOOK RECEBIDO: R$ ${parseFloat(stripeAmount).toLocaleString("pt-BR")} PAGO`);
-        fetchTransactions();
-      } catch (err) {
-        console.error("Erro ao simular Stripe:", err);
-      }
-    }, 1500);
-  };
 
   // Calculate dynamic cash flow metrics
   const totalIncomes = transactions
@@ -175,12 +147,12 @@ export default function FinancePage() {
     .filter((t) => t.type === "expense")
     .reduce((sum, t) => sum + (t.amount || 0), 0);
 
-  // Fallbacks to match Page 7 metrics of PDF if the DB has fewer records
-  const displayFaturamento = totalIncomes > 0 ? totalIncomes : 145000;
-  const displayProjetos = totalIncomes > 0 ? totalIncomes * 0.63 : 92000;
-  const displayDespesas = totalExpenses > 0 ? totalExpenses : 28000;
+  // Exclusivamente dados reais do banco
+  const displayFaturamento = totalIncomes;
+  const displayProjetos = totalIncomes > 0 ? totalIncomes * 0.63 : 0;
+  const displayDespesas = totalExpenses;
   const netProfit = displayFaturamento - displayDespesas;
-  const profitMargin = displayFaturamento > 0 ? ((netProfit / displayFaturamento) * 100).toFixed(1) : "80.7";
+  const profitMargin = displayFaturamento > 0 ? ((netProfit / displayFaturamento) * 100).toFixed(1) : "0.0";
 
   // Filter transactions based on search query
   const filteredTransactions = transactions.filter(
@@ -204,12 +176,6 @@ export default function FinancePage() {
           </div>
           
           <div className="flex flex-wrap items-center gap-2">
-            <button
-              onClick={() => setShowStripeModal(true)}
-              className="px-3 py-1.5 font-technical text-xs font-bold border border-primary text-primary hover:bg-primary/10 active:scale-[0.98] transition-transform duration-75 flex items-center gap-1.5"
-            >
-              <Wallet size={13} /> SIMULAR_STRIPE™
-            </button>
             <button
               onClick={fetchTransactions}
               className="px-3 py-1.5 font-technical text-xs font-bold border border-border hover:bg-surface-hover text-text-secondary active:scale-[0.98] transition-transform duration-75 flex items-center gap-1.5"
@@ -415,7 +381,7 @@ export default function FinancePage() {
                     {filteredTransactions.map((t) => (
                       <tr key={t.id} className="border-b border-border hover:bg-black/20 transition-colors duration-100">
                         <td className="py-3 px-3 whitespace-nowrap">
-                          <span className="text-text-muted font-bold text-[11px]">{t.date}</span>
+                          <span className="text-text-muted font-bold text-[11px]">{t.transaction_date}</span>
                         </td>
                         <td className="py-3 px-3">
                           <span className="font-bold text-text-primary">{t.description}</span>
@@ -462,54 +428,7 @@ export default function FinancePage() {
         </div>
       </div>
 
-      {/* STRIPE SIMULATION MODAL */}
-      {showStripeModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="bg-surface border border-border p-6 max-w-sm w-full flex flex-col gap-4">
-            <div className="border-b border-border pb-3 flex flex-col">
-              <span className="font-technical text-xs font-bold text-primary tracking-widest">STRIPE SIMULATOR v1.0</span>
-              <span className="font-technical text-[10px] text-text-muted mt-1">Efetue um faturamento simulado e verifique o webhook.</span>
-            </div>
-            
-            <div className="flex flex-col gap-3">
-              <div className="flex flex-col gap-1.5">
-                <label className="font-technical text-[9px] font-bold text-text-secondary tracking-wider">NOME DO PROJETO</label>
-                <input
-                  type="text"
-                  value={stripeProject}
-                  onChange={(e) => setStripeProject(e.target.value)}
-                  className="bg-black border border-border px-3 py-2 text-xs font-technical text-text-primary focus:outline-none"
-                />
-              </div>
 
-              <div className="flex flex-col gap-1.5">
-                <label className="font-technical text-[9px] font-bold text-text-secondary tracking-wider">VALOR COBRADO (R$)</label>
-                <input
-                  type="number"
-                  value={stripeAmount}
-                  onChange={(e) => setStripeAmount(e.target.value)}
-                  className="bg-black border border-border px-3 py-2 text-xs font-technical text-text-primary focus:outline-none"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 mt-2">
-              <button
-                onClick={() => setShowStripeModal(false)}
-                className="py-2 border border-border font-technical text-[10px] font-bold text-text-secondary hover:bg-surface-hover"
-              >
-                CANCELAR
-              </button>
-              <button
-                onClick={handleStripeCheckoutSimulation}
-                className="py-2 bg-primary hover:bg-primary-hover font-technical text-[10px] font-bold text-text-primary"
-              >
-                EFETUAR_PAGAMENTO
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </DashboardShell>
   );
 }

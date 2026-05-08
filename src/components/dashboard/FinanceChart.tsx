@@ -18,7 +18,7 @@ interface Transaction {
   amount: number;
   type: string;
   category: string;
-  date: string;
+  transaction_date: string;
 }
 
 interface FinanceChartProps {
@@ -26,15 +26,8 @@ interface FinanceChartProps {
 }
 
 export default function FinanceChart({ transactions = [] }: FinanceChartProps) {
-  // Static mockup data to ensure robust visual fallback (Page 7 metrics of PDF)
-  const defaultData = [
-    { month: "JAN", income: 15000, expense: 4000 },
-    { month: "FEV", income: 22000, expense: 5500 },
-    { month: "MAR", income: 18000, expense: 4800 },
-    { month: "ABR", income: 31000, expense: 6200 },
-    { month: "MAI", income: 27000, expense: 4500 },
-    { month: "JUN", income: 32000, expense: 3000 },
-  ];
+  // Sem dados fictícios de fallback (vazio se o banco estiver vazio)
+  const defaultData: { month: string; income: number; expense: number }[] = [];
 
   // Process real transactions to aggregate income and expenses by month dynamically
   const getChartData = () => {
@@ -46,12 +39,12 @@ export default function FinanceChart({ transactions = [] }: FinanceChartProps) {
     const monthlyMap: { [key: string]: { income: number; expense: number } } = {};
 
     // Filter transactions from the current year and sort them
-    const sorted = [...transactions].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    const sorted = [...transactions].sort((a, b) => new Date(a.transaction_date).getTime() - new Date(b.transaction_date).getTime());
 
     // Iterate and aggregate
     sorted.forEach((t) => {
       try {
-        const dateObj = new Date(t.date);
+        const dateObj = new Date(t.transaction_date);
         const monthLabel = monthNames[dateObj.getMonth()];
         
         if (!monthlyMap[monthLabel]) {
@@ -73,11 +66,6 @@ export default function FinanceChart({ transactions = [] }: FinanceChartProps) {
       income: Math.round(monthlyMap[month].income),
       expense: Math.round(monthlyMap[month].expense),
     }));
-
-    // If we only have 1 or 2 months, blend with default data to avoid single-point charts
-    if (processedData.length < 3) {
-      return defaultData;
-    }
 
     return processedData;
   };
