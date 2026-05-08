@@ -17,76 +17,61 @@ export default function PublicHeader() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[#2E3A2F] bg-black/80 backdrop-blur-md">
-      <div className="mx-auto max-width-[1440px] px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="relative flex h-8 w-8 items-center justify-center rounded-sm border border-[#2E3A2F] bg-[#0a0a0a] group-hover:border-[#FF0B0B] transition-colors">
-                <Terminal className="h-4 w-4 text-[#FF0B0B] group-hover:scale-110 transition-transform" />
-                <div className="absolute top-1 right-1 h-2 w-2 rounded-full bg-[#FF0B0B] animate-pulse" />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-technical text-sm font-bold tracking-wider text-white">
-                  CODIMDEV
-                </span>
-                <span className="font-technical text-[10px] text-[#A1A1AA] tracking-widest leading-none">
-                  SYSTEM ENGINE
-                </span>
-              </div>
-            </Link>
-          </div>
+    <header className="flex z-50 w-full pt-8 pr-6 pl-6 relative justify-center sticky top-0 bg-black/10 backdrop-blur-md">
+      <div className="flex w-full max-w-[1400px] items-center justify-between">
+        
+        {/* Logo */}
+        <Link href="/" className="w-12 h-12 bg-white/5 backdrop-blur-md rounded-full flex items-center justify-center border border-white/10 hover:bg-white/10 transition duration-300">
+          <Terminal className="w-5 h-5 text-white" />
+        </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => {
-              const isActive = pathname === item.href;
-              return (
+        {/* Center Nav Pill */}
+        <nav className="hidden md:flex items-center bg-white/5 backdrop-blur-md border border-white/10 rounded-full px-8 py-3.5 gap-6 text-sm font-medium text-neutral-400 shadow-xl shadow-black/50">
+          {navItems.map((item, idx) => {
+            const isActive = pathname === item.href;
+            return (
+              <div key={item.name} className="flex items-center gap-6">
                 <Link
-                  key={item.name}
                   href={item.href}
-                  className={`font-technical text-xs tracking-wider uppercase transition-colors ${
-                    isActive
-                      ? "text-[#FF0B0B] font-bold"
-                      : "text-[#A1A1AA] hover:text-white"
+                  className={`hover:text-white transition duration-200 text-xs font-technical uppercase tracking-wider ${
+                    isActive ? "text-primary font-bold" : "text-neutral-400"
                   }`}
                 >
                   {item.name}
                 </Link>
-              );
-            })}
-          </nav>
+                {idx < navItems.length - 1 && (
+                  <div className="w-1 h-1 bg-neutral-600 rounded-full" />
+                )}
+              </div>
+            );
+          })}
+        </nav>
 
-          {/* Action Buttons */}
-          <div className="hidden md:flex items-center gap-4">
-            <Link
-              href="/diagnostico"
-              className="inline-flex h-9 items-center justify-center rounded-sm bg-[#FF0B0B] px-4 font-technical text-xs font-bold uppercase tracking-wider text-white hover:bg-[#D60606] transition-all shadow-[0_0_15px_rgba(255,11,11,0.2)]"
-            >
-              Diagnóstico Gratuito
-            </Link>
-          </div>
+        {/* CTA Pill */}
+        <div className="hidden md:flex items-center">
+          <Link href="/audit" className="text-xs font-bold text-white bg-primary hover:bg-primary-hover border border-primary-hover backdrop-blur-md rounded-full px-7 py-3.5 transition duration-300 uppercase tracking-wider font-technical">
+            Iniciar Projeto
+          </Link>
+        </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex md:hidden">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-sm border border-[#2E3A2F] text-[#A1A1AA] hover:text-white hover:border-[#FF0B0B] transition-colors"
-            >
-              {mobileMenuOpen ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
-            </button>
-          </div>
+        {/* Mobile Menu Button */}
+        <div className="flex md:hidden">
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="w-12 h-12 bg-white/5 backdrop-blur-md rounded-full flex items-center justify-center border border-white/10 text-neutral-400 hover:text-white transition-all"
+          >
+            {mobileMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-[#2E3A2F] bg-black px-4 py-4 space-y-3">
+        <div className="absolute top-24 left-6 right-6 z-50 md:hidden border border-white/10 bg-black/90 backdrop-blur-2xl rounded-3xl p-6 shadow-2xl space-y-4">
           <nav className="flex flex-col gap-4">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
@@ -95,10 +80,10 @@ export default function PublicHeader() {
                   key={item.name}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`font-technical text-xs tracking-wider uppercase transition-colors ${
+                  className={`text-sm font-technical uppercase tracking-wider transition-colors ${
                     isActive
-                      ? "text-[#FF0B0B] font-bold"
-                      : "text-[#A1A1AA] hover:text-white"
+                      ? "text-primary font-bold"
+                      : "text-neutral-400 hover:text-white"
                   }`}
                 >
                   {item.name}
@@ -106,13 +91,13 @@ export default function PublicHeader() {
               );
             })}
           </nav>
-          <div className="flex flex-col gap-3 pt-4 border-t border-[#2E3A2F]">
+          <div className="flex flex-col gap-3 pt-4 border-t border-white/5">
             <Link
-              href="/diagnostico"
+              href="/audit"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex h-10 items-center justify-center rounded-sm bg-[#FF0B0B] font-technical text-xs font-bold uppercase tracking-wider text-white hover:bg-[#D60606] transition-colors"
+              className="flex h-11 items-center justify-center rounded-full bg-primary font-technical text-xs font-bold uppercase tracking-wider text-white hover:bg-primary-hover transition-colors"
             >
-              Diagnóstico Gratuito
+              Iniciar Projeto
             </Link>
           </div>
         </div>

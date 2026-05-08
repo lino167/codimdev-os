@@ -1,248 +1,236 @@
 "use client";
 
 import { useState } from "react";
+import PublicHeader from "@/components/public/Header";
+import PublicFooter from "@/components/public/Footer";
 import { 
   Terminal, 
   Code2, 
-  CheckCircle2, 
-  Wrench, 
-  Bot, 
-  Database 
+  Cpu, 
+  ExternalLink,
+  ChevronRight,
+  Sparkles
 } from "lucide-react";
-import PublicHeader from "@/components/public/Header";
-import PublicFooter from "@/components/public/Footer";
+import Link from "next/link";
+import UnicornBackground from "@/components/public/UnicornBackground";
+
+interface Project {
+  id: string;
+  title: string;
+  category: string;
+  tag: string;
+  status: string;
+  desc: string;
+  techs: string[];
+  codeSnippet: string;
+}
 
 export default function PortfolioPage() {
-  const [selectedCase, setSelectedCase] = useState<number>(0);
-
-  const cases = [
+  const projects: Project[] = [
     {
-      title: "Bot OS Kraflo",
-      category: "AUTOMAÇÃO DE CAMPO",
-      icon: Bot,
-      problem: "Técnicos de campo perdiam tempo excessivo preenchendo planilhas manuais e gerando ordens de serviço físicas após manutenções industriais complexas.",
-      solution: "Desenvolvimento de uma máquina de estados robusta via Telegram Bot em Python para despacho rápido de Ordens de Serviço e geração de PDFs profissionais em tempo real via fpdf2.",
-      result: "Redução de 85% no tempo de preenchimento e centralização total dos despachos de manutenção.",
-      code: `import os
-from telegram.ext import Application, CommandHandler, MessageHandler, filters
-from fpdf import FPDF
+      id: "kraflo-cmms",
+      title: "Kraflo CMMS",
+      category: "Sistema de Gestão Industrial",
+      tag: "CMMS / Manutenção Preventiva",
+      status: "Em Produção (v1.4.0)",
+      desc: "Software de controle de manutenção industrial completo. Gerenciamento de ordens de serviço, cadastro de ativos de fábrica, telemetria em tempo real e gráficos de faturamento integrados diretamente ao banco Supabase.",
+      techs: ["Next.js", "Supabase", "Tailwind CSS", "TypeScript", "Recharts"],
+      codeSnippet: `// Kraflo CMMS - Telemetry Engine
+import { supabase } from "@/lib/supabase";
 
-class OrdemServicoPDF(FPDF):
-    def header(self):
-        self.set_font("Helvetica", "B", 12)
-        self.cell(0, 10, "KRAFLO INDUSTRIAL - ORDEM DE SERVICO", border=True, ln=True, align="C")
-
-async def start_handler(update, context):
-    await update.message.reply_text(
-        "📝 SISTEMA OS KRAFLO ACTIVO\\n"
-        "Envie o codigo da máquina para iniciar o despacho operacional..."
-    )
-
-def generate_pdf_report(os_id, machine_code, details):
-    pdf = OrdemServicoPDF()
-    pdf.add_page()
-    pdf.set_font("Helvetica", size=10)
-    pdf.cell(0, 10, f"OS ID: {os_id}", ln=True)
-    pdf.cell(0, 10, f"Maquina: {machine_code}", ln=True)
-    pdf.multi_cell(0, 10, f"Relatorio Tecnico: {details}")
-    pdf.output(f"reports/OS_{os_id}.pdf")
-`
-    },
-    {
-      title: "CRM Imobiliário",
-      category: "SISTEMAS CORPORATIVOS",
-      icon: Database,
-      problem: "Dificuldade na distribuição instantânea e persistente de leads capturados em campanhas de tráfego pago para corretores autônomos de imobiliárias de alto padrão.",
-      solution: "Criação de um backend modular em Python integrado ao Postgres/Supabase com separação clara de rotas de handlers, controle dinâmico de pipeline de vendas e gatilhos de automação.",
-      result: "Sincronização em tempo real de novos leads em menos de 100ms e aumento de 42% no tempo de resposta inicial.",
-      code: `import { createClient } from "@supabase/supabase-js";
-
-const supabaseUrl = process.env.SUPABASE_URL || "";
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || "";
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-export async function insertNewLead(leadData) {
+export async function fetchLiveAssets() {
   const { data, error } = await supabase
-    .from("leads")
-    .insert([
-      {
-        name: leadData.name,
-        company: leadData.company,
-        email: leadData.email,
-        phone: leadData.phone,
-        status: "captured",
-        source: "landing_page",
-        value: leadData.value || 0,
-        notes: leadData.notes || ""
-      }
-    ]);
+    .from("assets")
+    .select("id, name, health_score, status")
+    .order("health_score", { ascending: false });
     
-  if (error) throw error;
+  if (error) throw new Error(error.message);
   return data;
 }`
     },
     {
-      title: "Kraflo-CMMS",
-      category: "SOFTWARE INDUSTRIAL",
-      icon: Wrench,
-      problem: "Sistemas CMMS corporativos tradicionais são lentos, excessivamente burocráticos e distantes da rotina acelerada do chão de fábrica industrial.",
-      solution: "Software híbrido de controle de ativos e manutenção preditiva integrado com persistência de dados local (SQLite) e sincronização redundante com nuvem para operação offline sustentada.",
-      result: "Monitoramento de mais de 150 ativos de produção com zero perda de dados durante falhas temporárias de conexão física de rede.",
-      code: `import sqlite3
+      id: "manservel-lp",
+      title: "Manservel Landing Page",
+      category: "Landing Page Comercial",
+      tag: "Alta Conversão & Velocidade",
+      status: "Publicado",
+      desc: "Landing page desenvolvida para a Manservel utilizando o design tático de alta performance. Otimizada para carregamento em menos de 100ms e focada em converter leads qualificados para projetos industriais.",
+      techs: ["Next.js", "Tailwind CSS", "Framer Motion", "SEO Otimizado"],
+      codeSnippet: `// Manservel LP - Performance Check
+export const config = {
+  unstable_runtimeJS: false, // Zero JS option for static speed
+};
 
-def init_local_database():
-    conn = sqlite3.connect("database/local_assets.db")
-    cursor = conn.cursor()
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS local_assets (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            asset_code TEXT UNIQUE,
-            name TEXT,
-            status TEXT,
-            last_maintenance DATE,
-            synced_to_cloud INTEGER DEFAULT 0
-        )
-    """)
-    conn.commit()
-    conn.close()
-
-def log_maintenance_activity(asset_code, technician, status):
-    conn = sqlite3.connect("database/local_assets.db")
-    cursor = conn.cursor()
-    cursor.execute("""
-        UPDATE local_assets 
-        SET status = ?, last_maintenance = datetime('now'), synced_to_cloud = 0 
-        WHERE asset_code = ?
-    """, (status, asset_code))
-    conn.commit()
-    conn.close()
-`
+export default function Page() {
+  return (
+    <main className="min-h-screen bg-black text-white font-technical">
+      <h1>Manservel // Engenharia de Elite</h1>
+    </main>
+  );
+}`
     }
   ];
 
+  const [selectedProject, setSelectedProject] = useState<Project>(projects[0]);
+
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-[#FF0B0B] selection:text-white flex flex-col">
+    <div className="bg-[#050505] text-white min-h-screen relative overflow-x-hidden flex flex-col selection:bg-primary/30 font-display">
+
+      {/* ==========================================
+          1. AMBIENT GLOWS & UNICORN BACKGROUND
+          ========================================== */}
+      <UnicornBackground projectId="vTTCp5g4cVl9nwjlT56Z" hueRotate={90} opacity={0.6} />
+
+      {/* Feixes Diagonais Técnicos */}
+      <div className="fixed top-0 right-0 w-[120vw] h-[120vh] pointer-events-none -z-10 overflow-hidden transform translate-x-[10%] -translate-y-[10%]">
+        <div className="absolute w-[200%] h-[200%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform -rotate-[38deg]">
+          <div className="absolute top-[5%] right-[25%] w-[120px] h-[150%] bg-gradient-to-b from-transparent via-[#FF0B0B]/20 to-transparent blur-[24px]" />
+          <div className="absolute top-[-5%] right-[32%] w-[180px] h-[150%] bg-gradient-to-b from-transparent via-[#FF0B0B]/30 to-transparent blur-[32px]" />
+          <div className="absolute top-[15%] right-[42%] w-[140px] h-[150%] bg-gradient-to-b from-transparent via-[#5C3822]/30 to-transparent blur-[20px]" />
+        </div>
+      </div>
+
       <PublicHeader />
 
-      <main className="flex-1 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 relative z-10 w-full">
-        {/* Background Gradients */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-red-600/[0.02] rounded-full blur-[120px] pointer-events-none" />
-
-        <div className="max-w-3xl mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 border border-[#2E3A2F] bg-[#0a0a0a] px-3 py-1.5 rounded-sm">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#FF0B0B] animate-pulse" />
-            <span className="font-technical text-[10px] text-[#A1A1AA] tracking-widest uppercase">
-              Provas de Autoridade Técnica
+      <main className="flex-grow w-full max-w-[1400px] mx-auto px-6 py-20 relative z-10 space-y-16">
+        
+        {/* Intro Header */}
+        <div className="space-y-6 max-w-3xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span className="text-[10px] font-technical text-neutral-400 uppercase tracking-widest">
+              Ativos de Software e Sistemas de Alta Complexidade
             </span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-display font-medium leading-tight">
-            Pragmatismo Industrial & <br className="hidden sm:block" />
-            <span className="text-[#FF0B0B] font-semibold">Engenharia de Precisão</span>
+
+          <h1 className="text-4xl sm:text-6xl font-medium tracking-tight leading-[1.1]">
+            Nossos cases e <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/50">
+              sistemas práticos.
+            </span>
           </h1>
-          <p className="text-xs sm:text-sm text-[#A1A1AA] leading-relaxed max-w-xl">
-            Nossos cases refletem a união real entre o entendimento do chão de fábrica e o desenvolvimento de software robusto. Explore as soluções construídas:
+
+          <p className="text-base sm:text-lg text-neutral-400 leading-relaxed font-light">
+            Desenvolvemos soluções de software reais que resolvem dores industriais e comerciais. Explore a arquitetura técnica e o código-fonte de alguns dos nossos principais sistemas em produção.
           </p>
         </div>
 
-        {/* Case Selector and Code Terminal */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-20">
-          {/* Bento Case Grid Links */}
+        {/* Portfolio Layout Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          {/* Projects Selector Column */}
           <div className="lg:col-span-5 space-y-4">
-            {cases.map((cs, idx) => {
-              const Icon = cs.icon;
+            <h3 className="font-technical text-[10px] font-bold text-neutral-400 tracking-widest uppercase mb-4 pl-2">
+              SELECIONE UM SISTEMA OPERACIONAL:
+            </h3>
+            
+            {projects.map((proj) => {
+              const isSelected = selectedProject.id === proj.id;
               return (
-                <div
-                  key={cs.title}
-                  onClick={() => setSelectedCase(idx)}
-                  className={`border rounded-sm p-6 cursor-pointer text-left transition-all relative overflow-hidden group ${
-                    selectedCase === idx
-                      ? "border-[#FF0B0B] bg-[#0a0a0a]"
-                      : "border-[#2E3A2F] bg-black hover:border-white/50"
+                <button
+                  key={proj.id}
+                  onClick={() => setSelectedProject(proj)}
+                  className={`w-full text-left p-6 rounded-2xl border transition-all relative overflow-hidden group flex flex-col gap-3 ${
+                    isSelected 
+                      ? "border-primary/40 bg-neutral-900/50 shadow-lg shadow-black/30" 
+                      : "border-white/5 bg-white/[0.01] hover:border-white/10 hover:bg-white/[0.03]"
                   }`}
                 >
-                  <div className="absolute top-0 right-0 h-16 w-16 bg-red-600/[0.01] rounded-bl-full pointer-events-none" />
+                  {isSelected && (
+                    <div className="absolute top-0 right-0 h-16 w-16 bg-red-600/[0.03] rounded-bl-full pointer-events-none animate-fade-in" />
+                  )}
                   
-                  <div className="flex items-center justify-between gap-4 mb-3">
-                    <span className="font-technical text-[10px] text-[#FF0B0B] tracking-widest uppercase font-bold">
-                      {cs.category}
+                  <div className="flex justify-between items-start w-full">
+                    <span className="text-[10px] font-technical text-neutral-500 uppercase tracking-widest">
+                      {proj.category}
                     </span>
-                    <Icon className={`h-4 w-4 ${selectedCase === idx ? "text-[#FF0B0B]" : "text-[#52525B]"}`} />
+                    <span className={`text-[9px] font-technical px-2 py-0.5 rounded-full border ${
+                      isSelected 
+                        ? "border-primary/30 bg-primary/10 text-primary" 
+                        : "border-white/10 bg-white/5 text-neutral-400"
+                    }`}>
+                      {proj.status}
+                    </span>
                   </div>
 
-                  <h3 className="font-technical text-sm font-bold uppercase tracking-wider text-white mb-2">
-                    {cs.title}
-                  </h3>
-
-                  <p className="text-xs text-[#A1A1AA] line-clamp-2 leading-relaxed">
-                    {cs.solution}
-                  </p>
-                </div>
+                  <div className="space-y-1">
+                    <h4 className="text-lg font-medium text-white group-hover:text-primary transition-colors">
+                      {proj.title}
+                    </h4>
+                    <p className="text-xs text-neutral-400 font-light line-clamp-2">
+                      {proj.desc}
+                    </p>
+                  </div>
+                </button>
               );
             })}
           </div>
 
-          {/* Interactive Code Viewer and Terminal */}
-          <div className="lg:col-span-7 border border-[#2E3A2F] bg-[#020202] rounded-sm relative flex flex-col min-h-[450px]">
-            {/* Terminal Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-[#2E3A2F] bg-[#0a0a0a]">
-              <div className="flex items-center gap-2">
-                <Terminal className="h-4 w-4 text-[#FF0B0B]" />
-                <span className="font-technical text-[10px] text-[#A1A1AA] tracking-wider uppercase font-bold">
-                  terminal_engine_preview // {cases[selectedCase].title.toLowerCase().replace(" ", "_")}
+          {/* Code Viewer & Details Column */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="w-full p-8 bg-neutral-900/40 backdrop-blur-2xl border border-white/5 rounded-[2rem] shadow-2xl relative overflow-hidden space-y-6">
+              <div className="absolute top-0 right-0 h-16 w-16 bg-red-600/[0.02] rounded-bl-full pointer-events-none" />
+
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-1.5 text-[9px] font-technical text-neutral-400 border border-white/10 px-3 py-1 bg-white/5 backdrop-blur-md rounded-full uppercase">
+                  <Sparkles className="h-3 w-3 text-primary animate-pulse" />
+                  VISUALIZAÇÃO DE ATIVO DIGITAL
+                </div>
+                <h2 className="text-2xl font-technical font-bold uppercase tracking-wider text-white">
+                  {selectedProject.title}
+                </h2>
+                <span className="text-xs font-technical text-primary tracking-widest block uppercase">
+                  {selectedProject.tag}
                 </span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <span className="h-2 w-2 rounded-full bg-red-600" />
-                <span className="h-2 w-2 rounded-full bg-[#10B981] animate-pulse" />
-              </div>
-            </div>
 
-            {/* Core Body: Info and Code */}
-            <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
-              <div className="space-y-6">
-                {/* Problem & Solution block */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <div className="font-technical text-[9px] text-[#52525B] uppercase tracking-wider">DIAGNÓSTICO</div>
-                    <p className="text-xs text-[#A1A1AA] leading-relaxed">
-                      {cases[selectedCase].problem}
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="font-technical text-[9px] text-[#FF0B0B] uppercase tracking-wider">ATIVO CONSTRUÍDO</div>
-                    <p className="text-xs text-white leading-relaxed font-medium">
-                      {cases[selectedCase].solution}
-                    </p>
-                  </div>
-                </div>
+              <p className="text-xs text-neutral-400 leading-relaxed font-light">
+                {selectedProject.desc}
+              </p>
 
-                {/* Highlighted Result */}
-                <div className="border border-[#2E3A2F] bg-black p-4 rounded-sm flex items-start gap-3">
-                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#10B981] mt-0.5" />
-                  <div className="space-y-1">
-                    <div className="font-technical text-[9px] text-[#10B981] uppercase tracking-wider font-bold">RESULTADO TANGÍVEL</div>
-                    <p className="text-xs text-[#A1A1AA] leading-relaxed">
-                      {cases[selectedCase].result}
-                    </p>
-                  </div>
+              {/* Technologies Pill Grid */}
+              <div className="space-y-3 pt-4 border-t border-white/5">
+                <span className="text-[10px] font-technical text-neutral-400 uppercase tracking-widest block">
+                  TECNOLOGIAS APLICADAS:
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {selectedProject.techs.map((tech) => (
+                    <span key={tech} className="text-[10px] font-technical px-3 py-1 rounded-full border border-white/10 bg-white/5 text-neutral-400">
+                      {tech}
+                    </span>
+                  ))}
                 </div>
               </div>
 
-              {/* Code Snippet Box */}
-              <div className="mt-8 pt-6 border-t border-[#2E3A2F]">
-                <div className="flex items-center gap-2 mb-3">
-                  <Code2 className="h-3.5 w-3.5 text-[#52525B]" />
-                  <span className="font-technical text-[9px] text-[#52525B] uppercase tracking-wider font-bold">EXTRATO DE CÓDIGO FONTE</span>
+              {/* Interactive Code Mockup Terminal */}
+              <div className="space-y-3 pt-4 border-t border-white/5">
+                <div className="flex justify-between items-center pl-1">
+                  <span className="text-[10px] font-technical text-neutral-400 uppercase tracking-widest flex items-center gap-2">
+                    <Code2 className="h-3.5 w-3.5 text-primary" />
+                    ARQUITETURA DE CÓDIGO FONTE (SIMULADO)
+                  </span>
+                  <span className="text-[9px] font-technical text-neutral-600 uppercase tracking-wider">
+                    index.ts
+                  </span>
                 </div>
-                <div className="bg-black/80 rounded-sm p-4 border border-[#2E3A2F] overflow-x-auto max-h-52">
-                  <pre className="font-technical text-[10px] text-[#A1A1AA] leading-relaxed">
-                    <code>{cases[selectedCase].code}</code>
-                  </pre>
+                
+                <div className="rounded-2xl border border-white/5 bg-black/80 p-5 font-mono text-[11px] leading-relaxed overflow-x-auto text-neutral-300 shadow-inner">
+                  <pre>{selectedProject.codeSnippet}</pre>
                 </div>
+              </div>
+
+              <div className="pt-6">
+                <Link
+                  href="/audit"
+                  className="w-full h-12 bg-primary hover:bg-primary-hover text-white font-technical text-xs font-bold uppercase tracking-widest rounded-full flex items-center justify-center gap-2 transition-colors duration-100 shadow-[0_0_15px_rgba(255,11,11,0.2)]"
+                >
+                  Construir Sistema Sob Medida
+                  <ChevronRight className="h-4 w-4" />
+                </Link>
               </div>
             </div>
           </div>
+
         </div>
       </main>
 
