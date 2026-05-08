@@ -2,17 +2,43 @@
 
 import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
-import { Cpu, Database, Wifi, Clock, Menu, ChevronLeft, ChevronRight } from "lucide-react";
+import { Cpu, Database, Wifi, Clock, Menu, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 
 interface DashboardShellProps {
   children: React.ReactNode;
 }
 
 export default function DashboardShell({ children }: DashboardShellProps) {
+  const router = useRouter();
   const [time, setTime] = useState<string>("");
   const [ping, setPing] = useState<number>(8);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
   const [isMobileOpen, setIsMobileOpen] = useState<boolean>(false);
+  const [authChecking, setAuthChecking] = useState<boolean>(true);
+
+  useEffect(() => {
+    async function checkAuth() {
+      // 1. Verifica bypass de sessão local (demo)
+      const bypassSession = localStorage.getItem("codimdev_session");
+      if (bypassSession === "active" || bypassSession === "bypass") {
+        setAuthChecking(false);
+        return;
+      }
+
+      // 2. Verifica sessão real do Supabase
+      const { data } = await supabase.auth.getSession();
+      if (data?.session) {
+        setAuthChecking(false);
+        return;
+      }
+
+      // Se não autenticado, redireciona de forma reativa
+      router.push("/login");
+    }
+    checkAuth();
+  }, [router]);
 
   useEffect(() => {
     // Responsive auto-collapse (Page 10 of PDF: < 1024px auto-collapse)
@@ -52,12 +78,22 @@ export default function DashboardShell({ children }: DashboardShellProps) {
     };
   }, []);
 
+  if (authChecking) {
+    return (
+      <div className="flex flex-col h-screen w-screen bg-black items-center justify-center font-technical text-xs tracking-widest text-text-muted select-none gap-3">
+        <Loader2 className="w-6 h-6 text-primary animate-spin" />
+        <span>CONECTANDO // AUTENTICANDO OPERADOR NO CODIMDEV OS...</span>
+      </div>
+    );
+  }
+
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-background text-text-primary">
       {/* Lateral Menu */}
       <Sidebar 
         collapsed={isSidebarCollapsed} 
         mobileOpen={isMobileOpen} 
+
         onMobileClose={() => setIsMobileOpen(false)} 
       />
 

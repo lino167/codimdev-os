@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { 
   Terminal, 
   Users, 
@@ -12,8 +12,10 @@ import {
   FileText, 
   Cpu, 
   LayoutDashboard,
-  X
+  X,
+  LogOut
 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 interface SidebarProps {
   collapsed?: boolean;
@@ -52,6 +54,13 @@ const SidebarItem = ({ href, label, icon, active, collapsed }: SidebarItemProps)
 
 export default function Sidebar({ collapsed = false, mobileOpen = false, onMobileClose }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    localStorage.removeItem("codimdev_session");
+    router.push("/login");
+  };
 
   const menuItems = [
     { href: "/dashboard", label: "PAINEL DE CONTROLE", icon: <LayoutDashboard size={18} /> },
@@ -64,7 +73,7 @@ export default function Sidebar({ collapsed = false, mobileOpen = false, onMobil
   ];
 
   const sidebarClasses = `
-    bg-surface border-r border-border h-full flex flex-col flex-shrink-0 transition-all duration-200 z-40
+    bg-surface border-r border-border h-full flex flex-col flex-shrink-0 transition-all duration-200 z-40 relative
     ${collapsed ? "w-16" : "w-64"}
     ${mobileOpen ? "fixed inset-y-0 left-0 w-64 translate-x-0" : "hidden md:flex"}
     ${mobileOpen ? "" : ""}
@@ -127,24 +136,45 @@ export default function Sidebar({ collapsed = false, mobileOpen = false, onMobil
         </nav>
 
         {/* Footer Operator Info */}
-        <div className={`p-4 border-t border-border bg-black/40 flex items-center ${collapsed ? "justify-center" : "gap-3"}`}>
-          <div className="w-8 h-8 rounded-none border border-border bg-surface flex items-center justify-center font-technical font-bold text-xs text-primary flex-shrink-0">
-            ZR
+        <div className={`p-4 border-t border-border bg-black/40 flex items-center justify-between ${collapsed ? "justify-center" : "gap-3"}`}>
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-8 h-8 rounded-none border border-border bg-surface flex items-center justify-center font-technical font-bold text-xs text-primary flex-shrink-0">
+              ZR
+            </div>
+            {!collapsed && (
+              <div className="flex flex-col min-w-0">
+                <span className="font-technical text-xs font-bold text-text-primary truncate">
+                  ZACARIAS_RAMOS
+                </span>
+                <span className="font-technical text-[10px] text-status-success font-semibold tracking-wider flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-status-success rounded-full animate-ping"></span>
+                  SYS_ADMIN
+                </span>
+              </div>
+            )}
           </div>
           {!collapsed && (
-            <div className="flex flex-col min-w-0">
-              <span className="font-technical text-xs font-bold text-text-primary truncate">
-                ZACARIAS_RAMOS
-              </span>
-              <span className="font-technical text-[10px] text-status-success font-semibold tracking-wider flex items-center gap-1">
-                <span className="w-1.5 h-1.5 bg-status-success rounded-full animate-ping"></span>
-                SYS_ADMIN
-              </span>
-            </div>
+            <button 
+              onClick={handleLogout}
+              className="p-1.5 border border-border bg-surface text-text-secondary hover:text-primary hover:border-primary flex items-center justify-center transition-colors"
+              title="Encerrar Sessão"
+            >
+              <LogOut size={14} />
+            </button>
+          )}
+          {collapsed && (
+            <button 
+              onClick={handleLogout}
+              className="p-1.5 border border-border bg-surface text-text-secondary hover:text-primary hover:border-primary flex items-center justify-center transition-colors mt-2"
+              title="Encerrar Sessão"
+            >
+              <LogOut size={14} />
+            </button>
           )}
         </div>
       </aside>
     </>
   );
 }
+
 
